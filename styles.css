@@ -133,25 +133,11 @@ p{margin:0; text-wrap:pretty}
 .sec h2{font-size:var(--t-h2); line-height:1.08}
 
 /* ── before / after ──────────────────────────────────────── */
-.ba,.pairs{max-width:900px; margin-left:auto; margin-right:auto}
-.ba{margin-top:0; margin-bottom:0}
-.ba__stage{position:relative; aspect-ratio:3/2; max-height:56svh; overflow:hidden; background:var(--ink-2); touch-action:pan-y; cursor:ew-resize; user-select:none}
+.ba-grid{display:grid; grid-template-columns:minmax(0,1fr) 268px; gap:var(--s5); align-items:start}
+.ba{margin:0; min-width:0}
+.ba__stage{position:relative; aspect-ratio:3/2; max-height:58svh; overflow:hidden; background:var(--ink-2); touch-action:pan-y; cursor:ew-resize; user-select:none}
 .ba__stage.is-swapping .ba__img{opacity:0}
 .ba__stage .ba__img{transition:opacity var(--d-mid) var(--e-ui)}
-
-.pairs{list-style:none; margin:var(--s5) auto 0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:var(--s2)}
-.pairs__b{
-  display:block; width:100%; padding:0 0 var(--s2); border:0; border-top:1px solid var(--line-2);
-  background:transparent; cursor:pointer; text-align:left; color:var(--muted);
-  transition:border-color var(--d-ui) var(--e-ui), color var(--d-ui) var(--e-ui)
-}
-.pairs__b img{width:100%; aspect-ratio:3/2; object-fit:cover; opacity:.5; margin-top:var(--s2); transition:opacity var(--d-mid) var(--e-ui)}
-.pairs__b span{display:block; margin-top:12px; font-size:var(--t-sm); color:inherit}
-.pairs__b em{display:block; font-style:normal; font-family:var(--m); font-size:var(--t-label); letter-spacing:.13em; text-transform:uppercase; opacity:.7; margin-top:3px}
-.pairs__b:hover{color:var(--text); border-top-color:var(--line)}
-.pairs__b:hover img{opacity:.75}
-.pairs__b.is-on{color:var(--text); border-top-color:var(--gold)}
-.pairs__b.is-on img{opacity:1}
 .ba__img{width:100%; height:100%; object-fit:cover; pointer-events:none}
 .ba__after{position:absolute; inset:0; clip-path:inset(0 50% 0 0)}
 .ba__after .ba__img{width:100%; height:100%}
@@ -180,6 +166,22 @@ p{margin:0; text-wrap:pretty}
 .ba figcaption{margin-top:var(--s3); font-size:var(--t-sm); color:var(--muted); max-width:62ch}
 .ba figcaption .mono{display:block; color:var(--gold); margin-bottom:6px}
 .ba figcaption #baTxt{display:block}
+
+.pairs__h{display:block; padding-bottom:12px}
+.pairs{list-style:none; margin:0; padding:0; border-top:1px solid var(--line-2)}
+.pairs__b{
+  display:grid; grid-template-columns:78px minmax(0,1fr); gap:14px; align-items:center; width:100%;
+  padding:12px 0 12px 12px; border:0; border-left:2px solid transparent; border-bottom:1px solid var(--line-2);
+  background:transparent; cursor:pointer; text-align:left; color:var(--muted);
+  transition:border-color var(--d-ui) var(--e-ui), color var(--d-ui) var(--e-ui)
+}
+.pairs__b img{width:100%; aspect-ratio:3/2; object-fit:cover; opacity:.45; margin:0; transition:opacity var(--d-mid) var(--e-ui)}
+.pairs__b span{display:block; margin:0; font-size:13px; color:inherit; line-height:1.25}
+.pairs__b em{display:block; font-style:normal; font-family:var(--m); font-size:10px; letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin-top:4px}
+.pairs__b:hover{color:var(--text)}
+.pairs__b:hover img{opacity:.75}
+.pairs__b.is-on{color:var(--text); border-left-color:var(--gold)}
+.pairs__b.is-on img{opacity:1}
 
 /* ── comparison table ────────────────────────────────────── */
 .cmp{margin-top:var(--s9); border-top:1px solid var(--line); padding-top:var(--s5)}
@@ -346,9 +348,9 @@ p{margin:0; text-wrap:pretty}
   .hero__act .btn{flex:1 1 100%}
   .hero__foot{display:none}
   .head h2,.studio__txt h2,.form-grid__l h2{max-width:none}
+  .ba-grid{grid-template-columns:1fr; gap:var(--s4)}
   .ba__stage{aspect-ratio:4/3; max-height:none}
-  .pairs{grid-template-columns:repeat(2,1fr); gap:12px}
-  .pairs__b span{font-size:13px}
+
   .ba__tag{top:12px; padding:5px 9px; font-size:10px}
   .ba__tag--l{left:12px} .ba__tag--r{right:12px}
   .ba__grip{width:44px; height:44px; margin:-22px 0 0 -22px}
