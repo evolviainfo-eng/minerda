@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://minerda.lt/sitemap.xml
