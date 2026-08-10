@@ -139,14 +139,8 @@ p{margin:0; text-wrap:pretty}
 .ba__stage.is-swapping .ba__img{opacity:0}
 .ba__stage .ba__img{transition:opacity var(--d-mid) var(--e-ui)}
 .ba__img{width:100%; height:100%; object-fit:cover; pointer-events:none}
-.ba__after{position:absolute; inset:0; clip-path:inset(0 50% 0 0)}
+.ba__after{position:absolute; inset:0; clip-path:inset(0 0 0 50%)}
 .ba__after .ba__img{width:100%; height:100%}
-.ba__tag{
-  position:absolute; top:var(--s3); z-index:3; font-family:var(--m); font-size:var(--t-label);
-  letter-spacing:.16em; text-transform:uppercase; color:var(--text);
-  background:rgba(18,16,16,.6); border:1px solid var(--line-2); padding:6px 12px; backdrop-filter:blur(6px)
-}
-.ba__tag--l{left:var(--s3)} .ba__tag--r{right:var(--s3)}
 .ba__handle{
   position:absolute; top:0; bottom:0; left:50%; width:2px; margin-left:-1px; z-index:4;
   background:var(--gold); cursor:ew-resize; touch-action:none
@@ -351,8 +345,6 @@ p{margin:0; text-wrap:pretty}
   .ba-grid{grid-template-columns:1fr; gap:var(--s4)}
   .ba__stage{aspect-ratio:4/3; max-height:none}
 
-  .ba__tag{top:12px; padding:5px 9px; font-size:10px}
-  .ba__tag--l{left:12px} .ba__tag--r{right:12px}
   .ba__grip{width:44px; height:44px; margin:-22px 0 0 -22px}
   .cmp{margin-top:var(--s7)}
   .cmp__t thead{display:none}

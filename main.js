@@ -98,7 +98,7 @@
 
   var apply = function (v) {
     pct = Math.max(0, Math.min(100, v));
-    after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+    after.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
     handle.style.left = pct + '%';
     handle.setAttribute('aria-valuenow', String(Math.round(pct)));
     handle.setAttribute('aria-valuetext', Math.round(pct) + ' % po');
