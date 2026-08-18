@@ -43,7 +43,7 @@
       <a href="#darbai">Darbai</a>
       <a href="#uzklausa">Užklausa</a>
     </nav>
-    <a class="btn btn--ghost nav__tel" href="tel:+37063333969">+370 633 33969</a>
+    <a class="tlink nav__tel" href="tel:+37063333969">+370 633 33969</a>
     <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Atidaryti meniu">
       <span></span><span></span>
     </button>
@@ -71,8 +71,8 @@
     <h1>Įlenkimas dingsta.<br>Gamyklinis lakas lieka.</h1>
     <p class="hero__sub">Meninis lyginimas be dažymo, kėbulo poliravimas ir Ceramic&nbsp;Pro nano danga. Kauno studija, kurioje kėbulas taisomas neliečiant originalių dažų.</p>
     <div class="hero__act">
-      <a class="btn btn--solid" href="#uzklausa">Įvertinti pagal nuotrauką</a>
-      <a class="btn btn--ghost" href="tel:+37063333969">Skambinti +370 633 33969</a>
+      <a class="btn" href="#uzklausa">Įvertinti pagal nuotrauką</a>
+      <a class="tlink" href="tel:+37063333969">Skambinti +370 633 33969</a>
     </div>
   </div>
   <p class="hero__foot">Alfa Romeo · variklio dangtis po PDR</p>
@@ -81,41 +81,49 @@
 <!-- BEFORE / AFTER -->
 <section class="sec sec--ba" id="darbas">
   <div class="wrap">
-    <div class="head rv">
-      <p class="label">Prieš ir po</p>
-      <h2>Šviesos linija nemeluoja.</h2>
-      <p class="lead">Įlenkimą matuojame ne pirštu, o atspindžiu. Ant sveikos plokštumos šviesos tinklas eina tiesiai — ties pažeidimu jis lūžta ir išsilieja. Tas pats atspindys pasako, kada darbas baigtas.</p>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="ba-grid rv">
-    <figure class="ba" id="ba">
-      <div class="ba__stage" id="baStage">
-        <img class="ba__img" id="baB" src="img/ba1-before-lg.webp" srcset="img/ba1-before-sm.webp 700w, img/ba1-before-lg.webp 1080w" sizes="(max-width:900px) 100vw, 1180px" width="1080" height="720" alt="Galinis sparnas prieš remontą: šviesos lentos juostos ties įlenkimu susilaužo zigzagu">
-        <div class="ba__after"><img class="ba__img" id="baA" src="img/ba1-after-lg.webp" srcset="img/ba1-after-sm.webp 700w, img/ba1-after-lg.webp 1080w" sizes="(max-width:900px) 100vw, 1180px" width="1080" height="720" alt="Tas pats sparnas po lyginimo: juostos vėl tolygios"></div>
-        <div class="ba__handle" id="baHandle" role="slider" tabindex="0" aria-label="Palyginimo slankiklis: prieš ir po" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50 % po">
-          <span class="ba__grip" aria-hidden="true"></span>
+    <div class="head head--split rv">
+      <div class="head__l">
+        <p class="label">Prieš ir po</p>
+        <h2>Šviesos linija nemeluoja.</h2>
+        <p class="lead">Įlenkimą matuojame ne pirštu, o atspindžiu. Ant sveikos plokštumos šviesos tinklas eina tiesiai — ties pažeidimu jis lūžta ir išsilieja. Tas pats atspindys pasako, kada darbas baigtas.</p>
+      </div>
+      <div class="head__r">
+        <div class="pairs-col">
+          <p class="mono pairs__h">Darbai palyginimui</p>
+          <ul class="pairs" id="pairs">
+            <li><button type="button" class="pairs__b is-on" data-p="0"><img src="img/t1.webp" width="300" height="200" alt="Mercedes-Benz galinis sparnas su šviesos lenta" loading="lazy"><span>Mercedes-Benz<em>Galinis sparnas</em></span></button></li>
+            <li><button type="button" class="pairs__b" data-p="1"><img src="img/t2.webp" width="300" height="200" alt="Alfa Romeo variklio dangtis su šešiakampiais atspindžiais" loading="lazy"><span>Alfa Romeo<em>Variklio dangtis</em></span></button></li>
+            <li><button type="button" class="pairs__b" data-p="2"><img src="img/t3.webp" width="300" height="200" alt="Mercedes-Benz šoninė plokštuma prie degalų dangtelio" loading="lazy"><span>Mercedes-Benz<em>Šoninė plokštuma</em></span></button></li>
+            <li><button type="button" class="pairs__b" data-p="3"><img src="img/t4.webp" width="300" height="200" alt="Alfa Romeo dangtis fotografuotas iš kampo" loading="lazy"><span>Alfa Romeo<em>Dangtis iš kampo</em></span></button></li>
+          </ul>
         </div>
       </div>
-      <figcaption id="baCap"><span class="mono" id="baMeta">Mercedes-Benz · galinis sparnas</span> <span id="baTxt">Įlenkimas ties rato arka. Juostos susilaužo tiksliai ties pažeidimu — po lyginimo jos vėl seka arkos liniją.</span></figcaption>
-    </figure>
-
-    <div class="pairs-col">
-      <p class="mono pairs__h">Darbai palyginimui</p>
-      <ul class="pairs" id="pairs">
-      <li><button type="button" class="pairs__b is-on" data-p="0"><img src="img/t1.webp" width="300" height="200" alt="" loading="lazy"><span>Mercedes-Benz<em>Galinis sparnas</em></span></button></li>
-      <li><button type="button" class="pairs__b" data-p="1"><img src="img/t2.webp" width="300" height="200" alt="" loading="lazy"><span>Alfa Romeo<em>Variklio dangtis</em></span></button></li>
-      <li><button type="button" class="pairs__b" data-p="2"><img src="img/t3.webp" width="300" height="200" alt="" loading="lazy"><span>Mercedes-Benz<em>Šoninė plokštuma</em></span></button></li>
-      <li><button type="button" class="pairs__b" data-p="3"><img src="img/t4.webp" width="300" height="200" alt="" loading="lazy"><span>Alfa Romeo<em>Dangtis iš kampo</em></span></button></li>
-      </ul>
-    </div>
     </div>
   </div>
+
+  <figure class="ba" id="ba">
+    <div class="pin-wrap" id="pinWrap">
+      <div class="pin-stage">
+        <div class="ba__stage" id="baStage">
+          <img class="ba__img" id="baB" src="img/ba1-before-lg.webp" srcset="img/ba1-before-sm.webp 700w, img/ba1-before-lg.webp 1080w" sizes="100vw" width="1080" height="720" alt="Galinis sparnas prieš remontą: šviesos lentos juostos ties įlenkimu susilaužo zigzagu">
+          <div class="ba__after"><img class="ba__img" id="baA" src="img/ba1-after-lg.webp" srcset="img/ba1-after-sm.webp 700w, img/ba1-after-lg.webp 1080w" sizes="100vw" width="1080" height="720" alt="Tas pats sparnas po lyginimo: juostos vėl tolygios"></div>
+          <div class="ba__handle" id="baHandle" role="slider" tabindex="0" aria-label="Palyginimo slankiklis: prieš ir po" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50 % po">
+            <span class="ba__grip" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <figcaption class="ba__cap"><span class="mono" id="baMeta">Mercedes-Benz · galinis sparnas</span> <span id="baTxt">Įlenkimas ties rato arka. Juostos susilaužo tiksliai ties pažeidimu — po lyginimo jos vėl seka arkos liniją.</span></figcaption>
+    </div>
+  </figure>
 
   <div class="wrap">
     <div class="cmp rv">
-      <h3 class="cmp__h">Kodėl be dažymo</h3>
+      <div class="head">
+        <p class="label">Palyginimas</p>
+        <h3>Kodėl be dažymo</h3>
+      </div>
       <table class="cmp__t">
         <thead><tr><th scope="col"><span class="sr">Kriterijus</span></th><th scope="col">Meninis lyginimas</th><th scope="col">Dažymas</th></tr></thead>
         <tbody>
@@ -134,36 +142,41 @@
 <!-- SERVICES -->
 <section class="sec sec--svc" id="paslaugos">
   <div class="wrap">
-    <div class="head rv">
-      <p class="label">Ką darome</p>
-      <h2>Trys darbai, viena eilė.</h2>
-      <p class="lead">Pirma atkuriama kėbulo forma, tada paviršius, ir tik tada uždedama apsauga. Kita tvarka danga užkonservuoja klaidą.</p>
+    <div class="head head--split rv">
+      <div class="head__l">
+        <p class="label">Ką darome</p>
+        <h2>Trys darbai, viena eilė.</h2>
+        <p class="lead">Pirma atkuriama kėbulo forma, tada paviršius, ir tik tada uždedama apsauga. Kita tvarka danga užkonservuoja klaidą.</p>
+      </div>
+      <div class="head__r">
+        <dl class="more">
+          <div><dt>Taip pat atliekame</dt><dd>Krušos pažeidimų šalinimas · žibintų poliravimas · salono poliravimas · gilioji dekontaminacija (dervos, metalo dulkės) · įdaužų maskavimas dažais pagal gamyklinį spalvos kodą · ardymo ir surinkimo darbai</dd></div>
+          <div><dt>Įkainis</dt><dd><strong>nuo 40 €/val.</strong> <span class="src">nevaziuoja.lt</span></dd></div>
+        </dl>
+      </div>
     </div>
 
     <ol class="svc">
       <li class="svc__i rv">
-        <span class="svc__n mono">01</span>
-        <div class="svc__media"><img src="img/svc-pdr-lg.webp" srcset="img/svc-pdr-sm.webp 540w, img/svc-pdr-lg.webp 723w" sizes="(max-width:820px) 100vw, 30vw" width="723" height="964" alt="Geltona šviesos lenta atsispindi juodame dangtyje, linijos ties įlenkimu banguoja" loading="lazy"></div>
+        <span class="svc__n">01</span>
+        <div class="svc__media"><img src="img/svc-pdr-lg.webp" srcset="img/svc-pdr-sm.webp 540w, img/svc-pdr-lg.webp 723w" sizes="(max-width:900px) 40vw, 30vw" width="723" height="964" alt="Geltona šviesos lenta atsispindi juodame dangtyje, linijos ties įlenkimu banguoja" loading="lazy"></div>
         <h3>Meninis lyginimas</h3>
         <p>Įlenkimai išspaudžiami iš vidinės pusės arba traukiami iš išorės, kai prieigos į vidų nėra. Durų įlenkimai, sparnai, statramsčiai, krušos padariniai.</p>
       </li>
       <li class="svc__i rv">
-        <span class="svc__n mono">02</span>
-        <div class="svc__media"><img src="img/svc-polish-lg.webp" srcset="img/svc-polish-sm.webp 540w, img/svc-polish-lg.webp 606w" sizes="(max-width:820px) 100vw, 30vw" width="606" height="808" alt="Juodas kėbulas po poliravimo su tolygiu šviesos atspindžiu" loading="lazy"></div>
+        <span class="svc__n">02</span>
+        <div class="svc__media"><img src="img/svc-polish-lg.webp" srcset="img/svc-polish-sm.webp 540w, img/svc-polish-lg.webp 606w" sizes="(max-width:900px) 40vw, 30vw" width="606" height="808" alt="Juodas kėbulas po poliravimo su tolygiu šviesos atspindžiu" loading="lazy"></div>
         <h3>Kėbulo poliravimas</h3>
         <p>Sūkuriai, plovyklos žymės ir smulkūs įbrėžimai išimami pakopomis, kol atspindys tampa gilus ir vientisas. Tai ir yra paruošimas dangai.</p>
       </li>
       <li class="svc__i rv">
-        <span class="svc__n mono">03</span>
-        <div class="svc__media"><img src="img/svc-ceramic-lg.webp" srcset="img/svc-ceramic-sm.webp 540w, img/svc-ceramic-lg.webp 809w" sizes="(max-width:820px) 100vw, 30vw" width="809" height="1079" alt="Geltonas Lamborghini Urus Minerda studijoje po dangos padengimo" loading="lazy"></div>
+        <span class="svc__n">03</span>
+        <div class="svc__media"><img src="img/svc-ceramic-lg.webp" srcset="img/svc-ceramic-sm.webp 540w, img/svc-ceramic-lg.webp 809w" sizes="(max-width:900px) 40vw, 30vw" width="809" height="1079" alt="Geltonas Lamborghini Urus Minerda studijoje po dangos padengimo" loading="lazy"></div>
         <h3>Apsauginė danga</h3>
         <p>Keraminė arba grafeno nano danga dengiama ant jau ištaisyto paviršiaus — dirbama su Ceramic&nbsp;Pro ir Artdeshine sistemomis. Kėbulas lieka lengviau plaunamas, blizgesys išsilaiko ilgiau nei po vaško.</p>
       </li>
     </ol>
 
-  </div>
-
-  <div class="wrap wrap--wide">
     <div class="band rv">
       <div class="band__media">
         <video id="pdrVid" poster="img/pdr-poster.webp" width="720" height="1280"
@@ -174,15 +187,10 @@
         <p class="label">Kaip tai atrodo</p>
         <h3>Lenta juda — paviršius kalba.</h3>
         <p>Šviesos lenta vedžiojama išilgai plokštumos. Kol linija slenka tolygiai, metalas sveikas; kur ji stabteli ar susilaužo — ten įlenkimas. Toks pat patikrinimas atliekamas ir baigus darbą.</p>
-
-        <dl class="more">
-          <div><dt>Taip pat atliekame</dt><dd>Krušos pažeidimų šalinimas · žibintų poliravimas · salono poliravimas · gilioji dekontaminacija (dervos, metalo dulkės) · įdaužų maskavimas dažais pagal gamyklinį spalvos kodą · ardymo ir surinkimo darbai</dd></div>
-          <div><dt>Įkainis</dt><dd><strong>nuo 40 €/val.</strong> <span class="src">nevaziuoja.lt</span></dd></div>
-        </dl>
         <p class="band__note">Galutinė suma priklauso nuo pažeidimų kiekio ir kėbulo būklės — įvertiname pagal nuotraukas arba vietoje.</p>
         <div class="band__act">
-          <a class="btn btn--solid" href="#uzklausa">Įvertinti pagal nuotrauką</a>
-          <a class="btn btn--ghost" href="https://nevaziuoja.lt/autoservisas/minerda-1518" target="_blank" rel="noopener">Registruotis internetu</a>
+          <a class="tlink" href="#uzklausa">Įvertinti pagal nuotrauką</a>
+          <a class="tlink" href="https://nevaziuoja.lt/autoservisas/minerda-1518" target="_blank" rel="noopener">Registruotis internetu</a>
         </div>
       </div>
     </div>
@@ -191,15 +199,14 @@
 
 <!-- STUDIO -->
 <section class="sec sec--studio" id="studija">
-  <div class="wrap wrap--wide">
-    <div class="studio">
-      <div class="studio__media rv">
-        <img src="img/studio-lg.webp" srcset="img/studio-sm.webp 760w, img/studio-lg.webp 1280w" sizes="(max-width:900px) 100vw, 58vw" width="1280" height="720" alt="Minerda studijos boksas su šešiakampiu LED apšvietimu ir tamsiu BMW" loading="lazy">
-      </div>
-      <div class="studio__txt rv">
+  <div class="wrap">
+    <div class="head head--split rv">
+      <div class="head__l">
         <p class="label">Studija</p>
         <h2>Vienas meistras, vienas boksas.</h2>
-        <p>Šešiakampis LED tinklas lubose ir mobilios šviesos lentos. Toks apšvietimas nėra dekoracija — be jo įlenkimo ribų tiesiog nematyti. Kėbulą tvarko pats Mindaugas, tose pačiose srityse dirbantis 11 metų.</p>
+        <p class="lead">Šešiakampis LED tinklas lubose ir mobilios šviesos lentos. Toks apšvietimas nėra dekoracija — be jo įlenkimo ribų tiesiog nematyti. Kėbulą tvarko pats Mindaugas, tose pačiose srityse dirbantis 11 metų.</p>
+      </div>
+      <div class="head__r">
         <dl class="facts">
           <div><dt>Patirtis</dt><dd>11 metų <span class="src">nevaziuoja.lt</span></dd></div>
           <div><dt>Įvertinimas</dt><dd>5,0 iš 2 patvirtintų atsiliepimų <span class="src">nevaziuoja.lt</span></dd></div>
@@ -207,12 +214,19 @@
           <div><dt>Kalbos</dt><dd>Lietuvių, anglų, rusų, lenkų</dd></div>
           <div><dt>Veiklos forma</dt><dd>MINERDA, M. Bakanovo IDV</dd></div>
         </dl>
-        <blockquote class="quote">
-          <p>„Nupoliravo nubrozdintas vietas gražiai, kruopščiai ištiesino mažus įlenkimus ant kėbulo.“</p>
-          <cite>Kipras · Seat Ibiza · patvirtintas atsiliepimas, nevaziuoja.lt</cite>
-        </blockquote>
       </div>
     </div>
+  </div>
+
+  <div class="studio__media rv">
+    <img src="img/studio-lg.webp" srcset="img/studio-sm.webp 760w, img/studio-lg.webp 1280w" sizes="100vw" width="1280" height="720" alt="Minerda studijos boksas su šešiakampiu LED apšvietimu ir tamsiu BMW" loading="lazy">
+  </div>
+
+  <div class="wrap">
+    <blockquote class="quote rv">
+      <p>„Nupoliravo nubrozdintas vietas gražiai, kruopščiai ištiesino mažus įlenkimus ant kėbulo.“</p>
+      <cite>Kipras · Seat Ibiza · patvirtintas atsiliepimas, nevaziuoja.lt</cite>
+    </blockquote>
   </div>
 </section>
 
@@ -225,8 +239,7 @@
       <p class="lead">Nuotraukos iš studijos: šviesos lentos ant pažeistų plokštumų ir baigti automobiliai po poliravimo bei dangos.</p>
     </div>
   </div>
-  <div class="wrap wrap--wide">
-    <ul class="gal rv" id="gal">
+  <ul class="gal rv" id="gal">
       <li><button type="button" class="gal__i" data-i="0"><img src="img/g01-sm.webp" width="620" height="465" alt="Galinio sparno arka su šviesos lenta — juostos ties įlenkimu susilaužo" loading="lazy"></button></li>
       <li><button type="button" class="gal__i" data-i="1"><img src="img/g02-sm.webp" width="620" height="465" alt="Juodas variklio dangtis: šviesos lentos juostos išsilieja ties pažeidimu" loading="lazy"></button></li>
       <li><button type="button" class="gal__i" data-i="2"><img src="img/g03-sm.webp" width="620" height="465" alt="Tamsios durys tarp dviejų šviesos lentų, tikrinama plokštuma" loading="lazy"></button></li>
@@ -240,7 +253,6 @@
       <li><button type="button" class="gal__i" data-i="10"><img src="img/g11-sm.webp" width="620" height="465" alt="Žalias BMW M3 Competition po darbų" loading="lazy"></button></li>
       <li><button type="button" class="gal__i" data-i="11"><img src="img/g12-sm.webp" width="620" height="465" alt="Lamborghini Urus stabdžių apkaba ir ratlankis iš arti" loading="lazy"></button></li>
     </ul>
-  </div>
 </section>
 
 <!-- FORM -->
@@ -282,7 +294,7 @@
           <p class="file-note" id="fileNote" hidden></p>
           <p class="err" data-err-for="f-file"></p>
         </div>
-        <button class="btn btn--solid btn--full" type="submit" id="submit">Gauti kainos įvertinimą</button>
+        <button class="btn btn--full" type="submit" id="submit">Gauti kainos įvertinimą</button>
         <p class="form__status" id="status" role="status" aria-live="polite"></p>
         <p class="form__fine">Duomenis naudojame tik atsakymui į šią užklausą.</p>
       </form>

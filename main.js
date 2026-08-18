@@ -39,6 +39,12 @@
 
   /* ── reveal ──────────────────────────────────────────── */
   var revealables = [].slice.call(document.querySelectorAll('.rv'));
+  /* 70ms stagger, restarted per section, capped at six steps */
+  [].slice.call(document.querySelectorAll('section, footer')).forEach(function (sec) {
+    [].slice.call(sec.querySelectorAll('.rv')).forEach(function (el, i) {
+      el.style.setProperty('--rd', Math.min(i, 5) * 70 + 'ms');
+    });
+  });
   var showAll = function () {
     revealables.forEach(function (el) { el.classList.add('is-in'); });
   };
@@ -108,22 +114,57 @@
     apply(((e.clientX - box.left) / box.width) * 100);
   };
 
-  stage.addEventListener('pointerdown', function (e) {
-    dragging = true;
-    stage.setPointerCapture(e.pointerId);
-    fromEvent(e);
-  });
-  stage.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
-  ['pointerup', 'pointercancel'].forEach(function (t) {
-    stage.addEventListener(t, function () { dragging = false; });
-  });
-  handle.addEventListener('keydown', function (e) {
-    var step = e.shiftKey ? 10 : 4;
-    if (e.key === 'ArrowLeft') { apply(pct - step); e.preventDefault(); }
-    if (e.key === 'ArrowRight') { apply(pct + step); e.preventDefault(); }
-    if (e.key === 'Home') { apply(0); e.preventDefault(); }
-    if (e.key === 'End') { apply(100); e.preventDefault(); }
-  });
+  /* Above 760px the comparison is scrubbed by the pinned section; on phones
+     (and under reduced motion) it stays a plain draggable slider. */
+  var pinWrap = document.getElementById('pinWrap');
+  var pinOn = !reduce && !qa && window.matchMedia('(min-width:761px)').matches;
+
+  if (pinOn) {
+    handle.setAttribute('aria-hidden', 'true');
+    handle.setAttribute('tabindex', '-1');
+    handle.removeAttribute('role');
+
+    var cur = 0.5, raf = null, live = false;
+    var progress = function () {
+      var r = pinWrap.getBoundingClientRect();
+      var total = r.height - window.innerHeight;
+      if (total <= 0) return 0.5;
+      return Math.max(0, Math.min(1, -r.top / total));
+    };
+    var tick = function () {
+      var target = 0.15 + progress() * 0.70;
+      cur += (target - cur) * 0.08;
+      apply(cur * 100);
+      raf = live ? requestAnimationFrame(tick) : null;
+    };
+    var setLive = function (on) {
+      if (on === live) return;
+      live = on;
+      if (on && !raf) raf = requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { setLive(e.isIntersecting); });
+      }, { rootMargin: '10% 0px' }).observe(pinWrap);
+    } else { setLive(true); }
+  } else {
+    stage.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      stage.setPointerCapture(e.pointerId);
+      fromEvent(e);
+    });
+    stage.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
+    ['pointerup', 'pointercancel'].forEach(function (t) {
+      stage.addEventListener(t, function () { dragging = false; });
+    });
+    handle.addEventListener('keydown', function (e) {
+      var step = e.shiftKey ? 10 : 4;
+      if (e.key === 'ArrowLeft') { apply(pct - step); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { apply(pct + step); e.preventDefault(); }
+      if (e.key === 'Home') { apply(0); e.preventDefault(); }
+      if (e.key === 'End') { apply(100); e.preventDefault(); }
+    });
+  }
 
   var setPair = function (i) {
     var p = pairs[i];
@@ -139,7 +180,7 @@
     swap(imgA, 'a', p.altA);
     metaEl.textContent = p.meta;
     txtEl.textContent = p.txt;
-    apply(50);
+    if (!pinOn) apply(50);
     setTimeout(function () { stage.classList.remove('is-swapping'); }, 40);
   };
 
