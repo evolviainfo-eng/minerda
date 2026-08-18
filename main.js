@@ -86,13 +86,13 @@
 
   /* ── lightbox ────────────────────────────────────────── */
   var shots = [
-    ['g01', 'Galinio sparno arka — juostos ties įlenkimu susilaužo'],
-    ['g02', 'Variklio dangtis — šviesos lenta rodo pažeidimo ribas'],
+    ['g01', 'Galinio sparno arka su šviesos lenta'],
+    ['g02', 'Variklio dangtis su šviesos lenta'],
     ['g03', 'Durų plokštuma tarp dviejų šviesos lentų'],
     ['g04', 'Porsche Cayenne GTS po poliravimo'],
-    ['g05', 'Tesla Model S — šešiakampiai lubų atspindžiai'],
+    ['g05', 'Tesla Model S studijos apšvietime'],
     ['g07', 'BMW X5 po kėbulo atnaujinimo'],
-    ['g08', 'BMW — tolygus atspindys per visą šoną'],
+    ['g08', 'BMW po poliravimo'],
     ['g10', 'Škoda Superb studijos apšvietime']
   ];
 
@@ -174,7 +174,7 @@
     if (!f) { fileNote.hidden = true; setErr('f-file', ''); return; }
     if (f.size > MAX) {
       fileNote.hidden = true;
-      setErr('f-file', 'Nuotrauka per didelė (' + Math.round(f.size / 1048576) + ' MB). Riba — 8 MB.');
+      setErr('f-file', 'Nuotrauka per didelė (' + Math.round(f.size / 1048576) + ' MB). Riba yra 8 MB.');
       return;
     }
     setErr('f-file', '');
@@ -192,7 +192,7 @@
     var digits = tel.value.replace(/\D/g, '');
     ok = setErr('f-tel', digits.length < 8 ? 'Įrašykite telefono numerį, kad galėtume atsakyti.' : '') && ok;
     var f = fileIn.files[0];
-    if (f && f.size > MAX) ok = setErr('f-file', 'Nuotrauka per didelė. Riba — 8 MB.') && ok;
+    if (f && f.size > MAX) ok = setErr('f-file', 'Nuotrauka per didelė. Riba yra 8 MB.') && ok;
 
     if (!ok) {
       status.className = 'form__status is-bad';
