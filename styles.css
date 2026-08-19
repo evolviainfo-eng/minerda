@@ -1,8 +1,8 @@
 /* ─────────────────────────────────────────────────────────────
    MINERDA — Kaunas
    6 type sizes · 1 accent · 1 line · 0 shadows · 1 radius (2px)
-   Rhythm: 128px between sections · 48px between blocks
-   Motion: one reveal
+   Rhythm: 128px between sections · 48px in section · 12px in pair · 96px between pairs
+   Motion: one reveal · hero settle 1.04→1
    ───────────────────────────────────────────────────────────── */
 
 :root{
@@ -15,32 +15,34 @@
 
   --f:"Archivo","Helvetica Neue",Arial,sans-serif;
   --m:"IBM Plex Mono",ui-monospace,monospace;
-  --t-display:64px;
-  --t-h2:38px;
+  --t-display:72px;
+  --t-h2:44px;
   --t-lead:22px;
   --t-body:17px;
   --t-sm:14px;
   --t-label:11px;
 
-  --gap-sec:80px;     /* ×2 between adjacent sections = 160px */
-  --gap-block:56px;
+  --gap-sec:64px;     /* ×2 between adjacent sections = 128px */
+  --gap-block:48px;
+  --gap-pair:96px;
   --s2:16px; --s3:24px; --s4:32px;
   --pad:40px;
   --max:1280px;
   --r:2px;
 
-  --e:cubic-bezier(.16,1,.30,1);
+  --e:cubic-bezier(.16,1,.30,1);      /* UI, tekstų reveal */
+  --e2:cubic-bezier(.76,0,.24,1);     /* didesni judesiai: clip atidengimai */
   --d-ui:150ms; --d-mid:320ms; --d-rev:560ms;
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%; -webkit-tap-highlight-color:transparent}
 body{
   margin:0; background:var(--ink); color:var(--text);
   font-family:var(--f); font-size:var(--t-body); font-weight:400; line-height:1.55;
   font-feature-settings:"kern" 1,"liga" 1;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+  overflow-x:hidden; overflow-x:clip;  /* clip, ne hidden — hidden laužo sticky */
 }
 img{max-width:100%; height:auto; display:block; border-radius:0}
 a{color:inherit; text-decoration:none}
@@ -70,9 +72,10 @@ p{margin:0; text-wrap:pretty}
   min-height:48px; padding:14px 30px; border:1px solid var(--gold); border-radius:var(--r);
   background:var(--gold); color:var(--ink);
   font-family:var(--f); font-size:var(--t-sm); font-weight:500; letter-spacing:.02em; cursor:pointer;
-  transition:background-color var(--d-ui) var(--e), border-color var(--d-ui) var(--e), color var(--d-ui) var(--e);
+  transition:background-color var(--d-ui) var(--e), border-color var(--d-ui) var(--e), color var(--d-ui) var(--e), transform 100ms var(--e);
 }
 .btn:hover{background:var(--text); border-color:var(--text)}
+.btn:active{transform:scale(.98)}
 .btn--full{width:100%}
 .tlink{
   display:inline-block; font-size:var(--t-sm); color:var(--text);
@@ -87,7 +90,7 @@ p{margin:0; text-wrap:pretty}
 .nav.is-stuck{background:rgba(18,16,16,.97); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom-color:var(--line)}
 .nav__in{display:flex; align-items:center; gap:var(--gap-block); height:78px}
 .nav__brand img{width:164px; height:auto}
-.nav__links{display:flex; gap:var(--s4); margin-left:auto; font-size:var(--t-sm); color:var(--muted)}
+.nav__links{display:flex; gap:var(--s4); margin-left:auto; font-size:var(--t-sm); color:var(--text)}
 .nav__links a{position:relative; padding:6px 0; transition:color var(--d-ui) var(--e)}
 .nav__links a::after{content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--gold);
   transform:scaleX(0); transform-origin:left; transition:transform var(--d-mid) var(--e)}
@@ -104,34 +107,37 @@ p{margin:0; text-wrap:pretty}
 .nav__panel a{padding:14px 0; font-size:var(--t-lead); border-bottom:1px solid var(--line)}
 .nav__panel-tel{color:var(--text); border-bottom:0 !important}
 
-/* ── hero ────────────────────────────────────────────────── */
-.hero{position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; padding-bottom:var(--gap-sec)}
-.hero__media{position:absolute; inset:0; z-index:0}
-.hero__media img{width:100%; height:100%; object-fit:cover; object-position:50% 45%}
-.hero::after{
-  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-  background:
-    linear-gradient(to top, var(--ink) 2%, rgba(18,16,16,.86) 34%, rgba(18,16,16,.36) 66%, rgba(18,16,16,.62) 100%),
-    linear-gradient(to right, rgba(18,16,16,.72) 0%, rgba(18,16,16,.12) 58%);
-}
-.hero__in{position:relative; z-index:2; width:100%}
-.hero h1{font-size:var(--t-display); line-height:1.02; letter-spacing:-.04em; max-width:18ch; margin-bottom:var(--s3)}
-.hero__sub{font-size:var(--t-lead); line-height:1.45; color:var(--muted); max-width:44ch; letter-spacing:-.012em}
-.hero__act{display:flex; align-items:center; gap:var(--s4); margin-top:var(--gap-block); flex-wrap:wrap}
+/* ── hero: 21:9 plokštė, laiptuota antraštė kerta jos apatinį kraštą ── */
+.hero{position:relative}
+.hero__plate{position:relative; height:clamp(460px, 41vw, 70vh); height:clamp(460px, 41vw, 70svh); overflow:hidden}
+.hero__plate img{width:100%; height:100%; object-fit:cover; object-position:50% 48%}
+/* vientisa uždanga per visą kadrą (kaip pushintame builde), apačioje išsifadina į foną */
+.hero__plate::after{content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(18,16,16,.52) 0%,
+    rgba(18,16,16,.46) 48%,
+    rgba(18,16,16,.66) 78%,
+    rgb(18,16,16) 100%)}  /* paskutinis stop pilnai nepermatomas — kraštas = fonas */
+/* abi antraštės eilutės tamsioje plokštės zonoje, antra su laipto įtrauka */
+.hero__in{position:relative; z-index:2; margin-top:-158px}
+.hero h1{font-size:var(--t-display); line-height:1.02; letter-spacing:-.04em; margin-bottom:var(--s4)}
+.hero__l2{display:block; padding-left:.92em}   /* laiptas */
+.hero__au{font-style:normal; color:var(--gold)}
+.hero__cols{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:var(--gap-block); align-items:center}
+.hero__sub{font-size:var(--t-lead); line-height:1.45; color:var(--muted); max-width:34ch;
+  letter-spacing:-.012em; margin-left:66px}  /* lygiuoja su laipto įtrauka: .92em × 72px */
+.hero__act{display:flex; align-items:center; gap:var(--s4); flex-wrap:wrap}
+.hero__meta{margin-top:var(--gap-block); padding-top:var(--s3); border-top:1px solid var(--line);
+  font-size:var(--t-sm); color:var(--muted); font-variant-numeric:tabular-nums}
 
-/* hero cinematics: image settles in, text rises in three steps */
-.js .hero__media img{animation:heroSettle 6s var(--e) both}
-@keyframes heroSettle{from{transform:scale(1.07)}to{transform:scale(1)}}
-.js .hero__in h1,.js .hero__in .hero__sub,.js .hero__in .hero__act{
-  opacity:0; transform:translate3d(0,26px,0); animation:rise 900ms var(--e) forwards}
-.js .hero__in h1{animation-delay:120ms}
-.js .hero__in .hero__sub{animation-delay:260ms}
-.js .hero__in .hero__act{animation-delay:400ms}
-@keyframes rise{to{opacity:1; transform:translate3d(0,0,0)}}
+/* vienintelis judesys įkeliant: lėtas settle 1.04 → 1 */
+.js .hero__plate img{animation:heroSettle 6s var(--e) both}
+@keyframes heroSettle{from{transform:scale(1.04)}to{transform:scale(1)}}
 
 /* ── section rhythm ──────────────────────────────────────── */
 .sec{padding:var(--gap-sec) 0; scroll-margin-top:96px}
-.sec--ba{padding-top:96px}
+.sec--ba{padding-top:calc(var(--gap-sec)*2)}
+.sec--band{background:var(--ink-2)}  /* vienintelis toninis break'as */
 .head{margin-bottom:var(--gap-block)}
 .head h2,.head h3{font-size:var(--t-h2); line-height:1.08; max-width:16ch; margin-bottom:var(--s3)}
 .head .lead{max-width:100%}
@@ -139,15 +145,33 @@ p{margin:0; text-wrap:pretty}
 .head__l{max-width:620px}
 .head__r{min-width:0}
 
-/* ── before / after: two static frames ───────────────────── */
+/* ── before / after: sticky index rail + pair flow ───────── */
+.ba-grid{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:var(--gap-block); align-items:start}
+.ba-rail{position:sticky; top:110px}
+.ba-rail .lead{margin-top:var(--s3)}
+.ba-index{list-style:none; margin:var(--gap-block) 0 0; padding:0; border-top:1px solid var(--line); counter-reset:bi}
+.ba-index li{border-bottom:1px solid var(--line)}
+.ba-index a{display:block; padding:13px 0 13px 18px; position:relative; font-size:var(--t-sm);
+  color:var(--muted); transition:color var(--d-mid) var(--e)}
+.ba-index a::before{content:""; position:absolute; left:0; top:13px; bottom:13px; width:1px;
+  background:var(--text); transform:scaleY(0); transform-origin:top; transition:transform var(--d-mid) var(--e)}
+.ba-index a span{display:block; margin-top:2px; font-size:var(--t-sm); opacity:.65}
+.ba-index a:hover{color:var(--text)}
+.ba-index li.is-cur a{color:var(--text)}
+.ba-index li.is-cur a::before{transform:scaleY(1)}
+
+/* two static frames, 96px between pairs */
 .ba{margin:0 auto; max-width:1120px}
+.ba + .ba{margin-top:var(--gap-pair)}
 .ba__duo{display:grid; grid-template-columns:1fr 1fr; gap:12px}
 .ba__tag{display:block; color:var(--muted); margin:0 0 10px}
 .ba__img{width:100%; aspect-ratio:3/2; object-fit:cover; background:var(--ink-2)}
+.ba--tall .ba__img{aspect-ratio:4/5}
+.ba--sq .ba__img{aspect-ratio:1/1}
 .ba__cap{margin-top:var(--s3); color:var(--muted); font-size:var(--t-sm); max-width:62ch}
 
 /* ── comparison + light-board video ──────────────────────── */
-.cmp{margin-top:var(--gap-sec)}
+.cmp{margin-top:var(--gap-pair)}
 .cmp__grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,320px); gap:var(--gap-sec); align-items:start}
 .cmp__media{margin:0}
 .cmp__media video{width:100%; aspect-ratio:9/16; object-fit:cover; display:block; background:var(--ink-2)}
@@ -159,13 +183,13 @@ p{margin:0; text-wrap:pretty}
 .cmp__t .y{color:var(--text)}
 .cmp__t .n{color:var(--muted)}
 .cmp__note{margin-top:var(--s4); font-size:var(--t-sm); color:var(--muted); max-width:62ch}
+.cmp__cta{margin-top:var(--s4)}
 
 /* ── services ────────────────────────────────────────────── */
 .svc{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap-block)}
 .svc__i{display:flex; flex-direction:column}
 .svc__media{overflow:hidden; aspect-ratio:4/5; margin-bottom:var(--s4); background:var(--ink-2)}
-.svc__media img{width:100%; height:100%; object-fit:cover; transition:opacity var(--d-mid) var(--e)}
-.svc__i:hover .svc__media img{opacity:.82}
+.svc__media img{width:100%; height:100%; object-fit:cover}
 .svc__i h3{font-size:var(--t-lead); font-weight:400; letter-spacing:-.02em; margin-bottom:var(--s2)}
 .svc__i p{font-size:var(--t-sm); color:var(--muted)}
 
@@ -175,10 +199,8 @@ p{margin:0; text-wrap:pretty}
 .more dd{margin:0; font-size:var(--t-sm); color:var(--text)}
 .more strong{font-weight:500; color:var(--text); font-variant-numeric:tabular-nums}
 
-/* ── studio ──────────────────────────────────────────────── */
+/* ── studio (be media: kadras nebuvo top ryškumo — kliento taisyklė) ── */
 /* shown well under the 1438px source width so it stays sharp */
-.studio__media{overflow:hidden; aspect-ratio:21/9; background:var(--ink-2); max-width:880px}
-.studio__media img{width:100%; height:100%; object-fit:cover; object-position:50% 40%}
 .facts{margin:0; border-top:1px solid var(--line)}
 .facts > div{display:flex; justify-content:space-between; gap:var(--s3); padding:13px 0; border-bottom:1px solid var(--line)}
 .facts dt{color:var(--muted); padding-top:3px}
@@ -187,23 +209,28 @@ p{margin:0; text-wrap:pretty}
 .quote p{font-size:var(--t-lead); font-weight:300; letter-spacing:-.02em; line-height:1.35}
 .quote cite{display:block; margin-top:var(--s2); color:var(--muted); font-style:normal}
 
-/* ── gallery ─────────────────────────────────────────────── */
-.gal{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,1fr); gap:var(--s2)}
-.gal__i{display:block; width:100%; padding:0; border:0; background:var(--ink-2); overflow:hidden; cursor:pointer; aspect-ratio:4/3}
-.gal__i img{width:100%; height:100%; object-fit:cover; transition:opacity var(--d-mid) var(--e)}
-.gal__i:hover img{opacity:.78}
+/* ── gallery: 3:2 kadrai, parašas po kiekvienu ───────────── */
+.gal{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.gal__f{margin:0}
+.gal__i{display:block; width:100%; padding:0; border:0; background:var(--ink-2); overflow:hidden; cursor:pointer; aspect-ratio:3/2}
+.gal__i img{width:100%; height:100%; object-fit:cover; transition:transform 700ms var(--e)}
+.gal__i:hover img{transform:scale(1.03)}
+.gal__cap{margin-top:10px; color:var(--muted); font-size:var(--t-sm)}
 
 /* ── form ────────────────────────────────────────────────── */
 .sec--form{border-top:1px solid var(--line)}
 .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap-block)}
+.form-grid__l h2{font-size:var(--t-h2); line-height:1.08; letter-spacing:-.028em; margin-bottom:var(--s3); max-width:16ch}
 .contacts{list-style:none; margin:var(--gap-block) 0 0; padding:0; border-top:1px solid var(--line)}
 .contacts li{display:flex; justify-content:space-between; align-items:baseline; gap:var(--s3); padding:14px 0; border-bottom:1px solid var(--line); font-size:var(--t-sm)}
-.contacts a{color:var(--text); border-bottom:1px solid var(--line); transition:border-color var(--d-ui) var(--e)}
+.contacts a{color:var(--text); border-bottom:1px solid var(--line); transition:border-color var(--d-ui) var(--e);
+  padding:14px 0; margin:-14px 0}  /* nematoma 48px tap zona */
 .contacts a:hover{border-bottom-color:var(--text)}
 .field{margin-bottom:var(--s3)}
 .field label{display:block; color:var(--muted); margin-bottom:10px}
 .field .opt{text-transform:none; letter-spacing:.02em; opacity:.7}
 .field input,.field textarea{
+  -webkit-appearance:none; appearance:none;
   width:100%; background:transparent; border:1px solid var(--line); border-radius:var(--r);
   color:var(--text); font-family:var(--f); font-size:var(--t-body); padding:14px 16px; min-height:52px;
   transition:border-color var(--d-ui) var(--e)
@@ -247,7 +274,7 @@ p{margin:0; text-wrap:pretty}
 .lb{position:fixed; inset:0; z-index:300; background:rgba(10,9,9,.96); display:flex; align-items:center; justify-content:center; padding:64px 72px}
 .lb[hidden]{display:none}
 .lb__f{margin:0; max-width:1200px; width:100%; text-align:center}
-.lb__f img{max-height:78svh; width:auto; margin:0 auto; object-fit:contain}
+.lb__f img{max-height:78vh; max-height:78svh; width:auto; margin:0 auto; object-fit:contain}
 .lb__f figcaption{margin-top:var(--s3); color:var(--muted)}
 .lb__x,.lb__nav{
   position:absolute; background:transparent; border:1px solid var(--line); color:var(--text);
@@ -266,27 +293,34 @@ p{margin:0; text-wrap:pretty}
   opacity:1; transform:translate3d(0,0,0);
   transition:opacity 380ms linear var(--rd,0ms), transform var(--d-rev) var(--e) var(--rd,0ms);
 }
-/* large media settles from a slight zoom as its block reveals */
-.js .rv .ba__img,.js .rv .svc__media img,.js .studio__media.rv img,.js .gal.rv img{
-  transform:scale(1.06);
-  transition:transform 1400ms var(--e) var(--rd,0ms), opacity var(--d-mid) var(--e);
+/* media atidengiama clip'u iš viršaus, kartu su lengvu scale settle —
+   stebimas .rv TĖVAS, ne pats img (clip-path ant stebimo elemento žudo IO) */
+.js .rv .ba__img,.js .rv .svc__media img,.js .gal.rv img{
+  clip-path:inset(0 0 100% 0); transform:scale(1.04);
+  transition:clip-path 900ms var(--e2) var(--rd,0ms), transform 900ms var(--e2) var(--rd,0ms);
 }
-.js .rv.is-in .ba__img,.js .rv.is-in .svc__media img,.js .studio__media.rv.is-in img,.js .gal.rv.is-in img{
-  transform:scale(1);
+.js .rv.is-in .ba__img,.js .rv.is-in .svc__media img,.js .gal.rv.is-in img{
+  clip-path:inset(0 0 0 0); transform:none;
 }
+/* hover transition grąžinama po reveal'o */
+.js .gal.rv.is-in .gal__i img{transition:transform 700ms var(--e)}
 
 /* ── responsive ──────────────────────────────────────────── */
 @media (max-width:1100px){
   :root{--pad:32px}
   .head--split{grid-template-columns:1fr; gap:var(--s4); align-items:start}
   .head__l{max-width:100%}
-  .gal{grid-template-columns:repeat(3,1fr)}
-  .studio__media{aspect-ratio:16/9}
+  .ba-grid{grid-template-columns:1fr}
+  .ba-rail{position:static}
+  .ba-index{display:none}
 }
 @media (max-width:900px){
-  :root{--t-display:38px; --t-h2:22px; --t-lead:17px; --pad:20px; --gap-sec:64px; --gap-block:48px}
+  :root{--t-display:38px; --t-h2:22px; --t-lead:17px; --pad:20px}
   .hero h1{max-width:none; letter-spacing:-.032em}
-  .hero__sub{max-width:none}
+  .hero__in{margin-top:-96px}
+  .hero__l2{padding-left:.6em}
+  .hero__sub{max-width:none; margin-left:0}
+  .hero__cols{grid-template-columns:1fr}
   .head h2,.head h3{max-width:none}
   .nav__links,.nav__tel{display:none}
   .nav__toggle{display:flex}
@@ -296,16 +330,19 @@ p{margin:0; text-wrap:pretty}
   .form-grid{grid-template-columns:1fr; gap:var(--gap-block)}
   .cmp__grid{grid-template-columns:1fr; gap:var(--gap-block)}
   .cmp__media{max-width:320px}
-  .svc{grid-template-columns:1fr; gap:var(--s4)}
-  .svc__i{display:grid; grid-template-columns:120px minmax(0,1fr); gap:var(--s3) var(--s4); align-items:start}
-  .svc__media{grid-column:1; grid-row:1; margin:0}
-  .svc__i h3{grid-column:2; grid-row:1}
-  .svc__i p{grid-column:2; grid-row:1; margin-top:34px}
+  .svc{grid-template-columns:1fr; gap:0}
+  .svc__i{display:grid; grid-template-columns:120px minmax(0,1fr); gap:var(--s2) var(--s4);
+    align-items:start; padding:var(--s4) 0}
+  .svc__i:first-child{padding-top:0}
+  .svc__i + .svc__i{border-top:1px solid var(--line)}
+  .svc__media{grid-column:1; grid-row:1/3; margin:0}
+  .svc__i h3{grid-column:2; grid-row:1; margin-bottom:0}
+  .svc__i p{grid-column:2; grid-row:2; margin-top:0}
   .foot__in{grid-template-columns:1fr 1fr}
   .foot__brand{grid-column:1/-1}
 }
 @media (max-width:700px){
-  .hero{min-height:92svh}
+  .hero__plate{height:52vh; height:52svh}
   .hero__act{display:none}
   .cmp__t{width:100%; table-layout:auto}
   .cmp__t thead{display:none}
@@ -318,11 +355,13 @@ p{margin:0; text-wrap:pretty}
   .cmp__media{max-width:none}
   .cmp__media video{aspect-ratio:4/5}
   .more > div{grid-template-columns:1fr; gap:6px}
-  .svc__i{grid-template-columns:1fr; gap:var(--s3)}
-  .svc__media{grid-column:1; grid-row:1}
-  .svc__i h3{grid-column:1; grid-row:2}
-  .svc__i p{grid-column:1; grid-row:3; margin-top:0}
-  .gal{grid-template-columns:repeat(2,1fr); gap:8px}
+  .svc__i{grid-template-columns:104px minmax(0,1fr)}
+  .gal{grid-template-columns:repeat(2,1fr)}
+  /* kruša ir poliravimas — smulkių defektų poros: 390px ekrane 3:2 kadruose defektų
+     nesimato, gilesnis 4:5 crop'as centruoja į pažeidimo zoną */
+  #krusa .ba__img,#poliravimas .ba__img{aspect-ratio:4/5}
+  /* 3 darbų kadrai 2 stulpeliuose paliktų našlaitį — paskutinis per visą plotį */
+  .gal li:last-child{grid-column:1/-1}
   .foot__in{grid-template-columns:1fr}
   .foot{padding-bottom:104px}
   .callbar{
@@ -337,15 +376,23 @@ p{margin:0; text-wrap:pretty}
   .lb__nav{width:44px; height:44px; margin-top:-22px}
   .lb__nav--p{left:8px} .lb__nav--n{right:8px}
   .lb__x{top:12px; right:12px; width:44px; height:44px}
-  .lb__f img{max-height:66svh}
+  .lb__f img{max-height:66vh; max-height:66svh}
 }
 
-html.qa .hero{min-height:820px; height:820px}
+html.qa .hero__plate{height:560px}
 html.qa .rv{opacity:1 !important; transform:none !important}
-html.qa .hero__media img{animation:none}
-html.qa .hero__in h1,html.qa .hero__in .hero__sub,html.qa .hero__in .hero__act{animation:none; opacity:1; transform:none}
-html.qa .rv img,html.qa .rv .ba__img{transform:none !important}
+html.qa .hero__plate img{animation:none}
+html.qa .rv img,html.qa .rv .ba__img{transform:none !important; clip-path:none !important}
 
+/* ≤760px ir reduced-motion: viskas statiška */
+@media (max-width:760px){
+  .js .hero__plate img{animation:none}
+  .js .rv{opacity:1; transform:none; transition:none}
+  .js .rv .ba__img,.js .rv .svc__media img,.js .gal.rv img{transform:none; transition:none; clip-path:none}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important}
+  .js .hero__plate img{animation:none}
+  .js .rv{opacity:1; transform:none}
+  .js .rv .ba__img,.js .rv .svc__media img,.js .gal.rv img{transform:none; clip-path:none}
 }

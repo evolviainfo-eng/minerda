@@ -13,6 +13,39 @@
      inbox below before the first message is delivered. */
   var FORM_ENDPOINT = 'https://formsubmit.co/bfr082@gmail.com';
 
+  /* ── smooth scroll: Lenis, lerp only ─────────────────────
+     rAF loop is self-stopping: it runs while the user scrolls and dies a
+     few hundred ms after the last input, so an idle page schedules no
+     frames (the client's document_idle requirement). */
+  var lenis = null;
+  if (!reduce && !qa && window.Lenis && window.matchMedia('(min-width:761px)').matches) {
+    lenis = new Lenis({ lerp: 0.1, smoothWheel: true, syncTouch: false, autoRaf: false });
+    var rafId = null, lastHit = 0;
+    var tick = function (t) {
+      lenis.raf(t);
+      if (lenis.isScrolling || performance.now() - lastHit < 400) {
+        rafId = requestAnimationFrame(tick);
+      } else { rafId = null; }
+    };
+    var wake = function () {
+      lastHit = performance.now();
+      if (rafId === null) rafId = requestAnimationFrame(tick);
+    };
+    ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+      window.addEventListener(ev, wake, { passive: true });
+    });
+    /* in-page anchors go through Lenis so they glide instead of jumping */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a || a.getAttribute('href').length < 2) return;
+      var target = document.getElementById(a.getAttribute('href').slice(1));
+      if (!target) return;
+      e.preventDefault();
+      wake();
+      lenis.scrollTo(target, { offset: -96 });
+    });
+  }
+
   /* ── nav ─────────────────────────────────────────────── */
   var nav = document.getElementById('nav');
   var toggle = document.getElementById('navToggle');
@@ -84,32 +117,57 @@
     });
   }
 
+  /* ── before/after index: current pair follows the scroll ── */
+  var baIndex = document.getElementById('baIndex');
+  if (baIndex && 'IntersectionObserver' in window) {
+    var items = [].slice.call(baIndex.querySelectorAll('a'));
+    var mark = function (id) {
+      items.forEach(function (a) {
+        a.parentNode.classList.toggle('is-cur', a.getAttribute('href') === '#' + id);
+      });
+    };
+    var pairIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) mark(e.target.id);
+      });
+    }, { rootMargin: '-35% 0px -45% 0px' });
+    ['p-bortelis', 'p-arka', 'p-briauna', 'p-sparnas'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) pairIO.observe(el);
+    });
+    mark('p-bortelis');
+  }
+
   /* ── lightbox ────────────────────────────────────────── */
   var shots = [
-    ['g01', 'Galinio sparno arka su šviesos lenta'],
-    ['g02', 'Variklio dangtis su šviesos lenta'],
-    ['g03', 'Durų plokštuma tarp dviejų šviesos lentų'],
-    ['g04', 'Porsche Cayenne GTS po poliravimo'],
-    ['g05', 'Tesla Model S studijos apšvietime'],
-    ['g07', 'BMW X5 po kėbulo atnaujinimo'],
-    ['g08', 'BMW po poliravimo'],
-    ['g10', 'Škoda Superb studijos apšvietime']
+    ['gal-m4', 'BMW M4 · matinis žalias kėbulas'],
+    ['gal-i5-front', 'BMW i5 · šešiakampis atspindys kapote'],
+    ['gal-i5-rear', 'BMW i5 · galas studijos šviesoje']
   ];
 
-  /* video: plays while its block is in view, pauses when it leaves */
+  /* video: plays only while its block is in view AND the tab is visible —
+     a looping video left decoding in a hidden tab never lets the page idle */
   var vid = document.getElementById('pdrVid');
-  if (vid && !reduce && !qa) {
+  /* self!==top: QA/fit harnesses load the page in an iframe — a looping video
+     there deadlocks virtual-time measurement */
+  if (vid && !reduce && !qa && window.self === window.top) {
+    var vidInView = false;
     var playVid = function () {
+      if (document.hidden || !vidInView) return;
       var pr = vid.play();
       if (pr && pr.catch) pr.catch(function () {});
     };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) {
         es.forEach(function (e) {
-          if (e.isIntersecting) playVid(); else vid.pause();
+          vidInView = e.isIntersecting;
+          if (vidInView) playVid(); else vid.pause();
         });
       }, { rootMargin: '120px' }).observe(vid);
-    } else { playVid(); }
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) vid.pause(); else playVid();
+      });
+    }
   }
 
   var lb = document.getElementById('lb');
@@ -120,19 +178,31 @@
 
   var render = function () {
     var s = shots[idx];
-    lbImg.src = 'img/' + s[0] + '-lg.webp';
+    lbImg.src = 'img/' + s[0] + '.webp';
     lbImg.alt = s[1];
     lbCap.textContent = s[1];
   };
+  /* iOS Safari ignoruoja body overflow:hidden — fonas rakinama per position:fixed */
+  var lockY = 0;
   var open = function (i) {
     idx = i; lastFocus = document.activeElement;
     render(); lb.hidden = false;
+    lockY = window.scrollY;
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = -lockY + 'px';
+    document.body.style.width = '100%';
+    if (lenis) lenis.stop();
     document.getElementById('lbX').focus();
   };
   var close = function () {
     lb.hidden = true;
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, lockY);
+    if (lenis) lenis.start();
     if (lastFocus) lastFocus.focus();
   };
   var step = function (d) {
