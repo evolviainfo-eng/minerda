@@ -465,9 +465,10 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
   position:absolute; left:50%; top:50%; width:44px; height:44px; margin:-22px 0 0 -22px;
   padding:0; border:1px solid var(--gold); border-radius:50%; background:rgba(18,16,16,.45);
   display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:3;
-  opacity:0; pointer-events:none; transition:opacity 300ms var(--e);
+  opacity:0; pointer-events:none; transition:opacity 400ms var(--e);
 }
 .v-play.is-on{opacity:1; pointer-events:auto}
+.v-play svg{pointer-events:none}
 .v-play svg{width:14px; height:14px; display:block; margin-left:2px; fill:#fff}
 .v-play:active{transform:scale(.98)}
 

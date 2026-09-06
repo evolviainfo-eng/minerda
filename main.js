@@ -355,10 +355,17 @@
   var live = !qa;
   var wanted = [];   /* videos that should be running right now */
 
+  /* Every iOS browser is WebKit, and Safari's WebM/VP9 answer to canPlayType
+     is not to be trusted (software decode, battery, stalls on Low Power) —
+     Safari and iOS always get the H.264 file. */
+  var ua = navigator.userAgent;
+  var safariLike = /iP(hone|ad|od)/.test(ua) ||
+    (/Safari\//.test(ua) && !/Chrome|Chromium|CriOS|FxiOS|Edg|OPR|SamsungBrowser/.test(ua));
   var pickSrc = function (v) {
     var webm = v.getAttribute('data-webm'), mp4 = v.getAttribute('data-mp4');
+    if (safariLike || !webm) return mp4;
     /* '' = no, 'maybe'/'probably' = yes */
-    return (webm && v.canPlayType('video/webm; codecs="vp9,vp8"')) ? webm : mp4;
+    return v.canPlayType('video/webm; codecs="vp9,vp8"') ? webm : mp4;
   };
 
   var loadVid = function (v) {
@@ -371,7 +378,7 @@
   };
 
   var tryPlay = function (v) {
-    if (!live || document.hidden) return;
+    if (!live || document.hidden || reduce) return;   /* reduce: the tap plays */
     if (wanted.indexOf(v) < 0) return;
     var pr = v.play();
     /* Whatever play() does, look again 300 ms after it settles: if the clip
@@ -436,6 +443,11 @@
   };
 
   vids.forEach(function (v) {
+    /* the icon is part of the poster from the first paint — it says "this is
+       a video" and is the way in wherever autoplay is refused; `playing`
+       takes it away, and it only comes back if the clip stalls while wanted */
+    showPlay(v);
+    if (reduce) v.removeAttribute('autoplay');
     v.addEventListener('playing', function () { hidePlay(v); });
     ['loadeddata', 'canplay', 'canplaythrough'].forEach(function (ev) {
       v.addEventListener(ev, function () { tryPlay(v); });
