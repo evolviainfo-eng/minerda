@@ -380,7 +380,9 @@
   };
 
   var tryPlay = function (v) {
-    if (!live || document.hidden || reduce) return;   /* reduce: the tap plays */
+    /* prefers-reduced-motion calms page animation (Lenis, reveals, slider hint)
+       only — silent loop clips keep their autoplay */
+    if (!live || document.hidden) return;
     if (wanted.indexOf(v) < 0) return;
     var pr = v.play();
     /* Whatever play() does, look again 300 ms after it settles: if the clip
@@ -449,7 +451,6 @@
        a video" and is the way in wherever autoplay is refused; `playing`
        takes it away, and it only comes back if the clip stalls while wanted */
     showPlay(v);
-    if (reduce) v.removeAttribute('autoplay');
     v.addEventListener('playing', function () { hidePlay(v); });
     ['loadeddata', 'canplay', 'canplaythrough'].forEach(function (ev) {
       v.addEventListener(ev, function () { tryPlay(v); });
