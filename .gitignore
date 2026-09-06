@@ -5,3 +5,23 @@ assets/
 .DS_Store
 _audit.html
 img/src/
+
+# QA / build laikinieji
+_shots/
+_src/
+_shot.js
+_final.js
+_rm.js
+_wk.js
+_sr/
+_vsr.py
+_vid.js
+_vid2.js
+_lp.js
+_fit.js
+_cap2.js
+_q.js
+_f.js
+_bar.js
+_cc.js
+_b2.js

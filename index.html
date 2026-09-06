@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Minerda | Įlenkimų šalinimas be dažymo Kaune</title>
-<meta name="description" content="Minerda — automobilių kėbulo studija Kaune. Meninis lyginimas (PDR) be dažymo, kėbulo poliravimas ir Ceramic Pro nano danga. V. Krėvės pr. 129A, Kaunas. Tel. +370 633 33969.">
-<meta name="keywords" content="meninis lyginimas Kaune, PDR Kaunas, įlenkimų šalinimas be dažymo, poliravimas Kaune, Ceramic Pro nano danga, krušos padariniai, kėbulo poliravimas">
+<meta name="description" content="Minerda — automobilių kėbulo studija Kaune. Meninis lyginimas (PDR) be dažymo, kėbulo poliravimas ir keraminė nanodanga. V. Krėvės pr. 129A, Kaunas. Tel. +370 633 33969.">
+<meta name="keywords" content="meninis lyginimas Kaune, PDR Kaunas, įlenkimų šalinimas be dažymo, poliravimas Kaune, keraminė nanodanga, krušos padariniai, kėbulo poliravimas">
 <meta name="theme-color" content="#121010">
 <link rel="canonical" href="https://minerda.lt/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="lt_LT">
 <meta property="og:title" content="Minerda — įlenkimų šalinimas be dažymo Kaune">
-<meta property="og:description" content="Meninis lyginimas (PDR), kėbulo poliravimas ir Ceramic Pro nano danga. V. Krėvės pr. 129A, Kaunas.">
+<meta property="og:description" content="Meninis lyginimas (PDR), kėbulo poliravimas ir keraminė nanodanga. V. Krėvės pr. 129A, Kaunas.">
 <meta property="og:image" content="https://minerda.lt/img/og.jpg">
 <meta property="og:url" content="https://minerda.lt/">
 <meta name="twitter:card" content="summary_large_image">
@@ -20,12 +20,18 @@
 <link rel="apple-touch-icon" href="img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260819">
+<link rel="preload" as="image" href="img/hero.webp" fetchpriority="high"
+      imagesrcset="img/hero-xs.webp 800w, img/hero-sm.webp 1100w, img/hero.webp 2568w" imagesizes="100vw">
+<link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<noscript><link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
+<link rel="stylesheet" href="styles.css?v=20260906">
 <script>document.documentElement.className += ' js';</script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"AutoBodyShop","name":"Minerda","alternateName":"Poliravimas Meninis Lyginimas Ceramic Pro nano danga Minerda","url":"https://minerda.lt/","image":"https://minerda.lt/img/og.jpg","telephone":"+37063333969","address":{"@type":"PostalAddress","streetAddress":"V. Krėvės pr. 129A","addressLocality":"Kaunas","postalCode":"LT-51100","addressCountry":"LT"},"areaServed":"Kaunas","priceRange":"nuo 40 €/val.","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"}],"sameAs":["https://www.facebook.com/profile.php?id=100054326658601","https://www.instagram.com/_minerda_/"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Meninis lyginimas (PDR)"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Kėbulo poliravimas"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ceramic Pro nano danga"}}]}
+{"@context":"https://schema.org","@type":"AutoBodyShop","name":"Minerda","alternateName":"Poliravimas Meninis Lyginimas keraminė nanodanga Minerda","url":"https://minerda.lt/","image":"https://minerda.lt/img/og.jpg","telephone":"+37063333969","address":{"@type":"PostalAddress","streetAddress":"V. Krėvės pr. 129A","addressLocality":"Kaunas","postalCode":"LT-51100","addressCountry":"LT"},"areaServed":"Kaunas","priceRange":"nuo 40 €/val.","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"}],"sameAs":["https://www.facebook.com/profile.php?id=100054326658601","https://www.instagram.com/_minerda_/"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Meninis lyginimas (PDR)"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Kėbulo poliravimas"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Keraminė nanodanga"}}]}
 </script>
 </head>
 <body>
@@ -34,13 +40,14 @@
 <header class="nav" id="nav">
   <div class="wrap nav__in">
     <a class="nav__brand" href="#top" aria-label="Minerda — pradžia">
-      <img src="img/minerda-logo-400.png" alt="Minerda">
+      <picture><source srcset="img/minerda-logo-400.webp" type="image/webp"><img src="img/minerda-logo-400.png" width="400" height="93" alt="Minerda"></picture>
     </a>
     <nav class="nav__links" aria-label="Pagrindinis meniu">
       <a href="#darbas">Prieš ir po</a>
       <a href="#paslaugos">Paslaugos</a>
       <a href="#studija">Studija</a>
       <a href="#darbai">Darbai</a>
+      <a href="#video">Video</a>
       <a href="#uzklausa">Užklausa</a>
     </nav>
     <a class="tlink nav__tel" href="tel:+37063333969">+370 633 33969</a>
@@ -49,11 +56,14 @@
     </button>
   </div>
   <div class="nav__panel" id="navPanel" hidden>
-    <a href="#darbas">Prieš ir po</a>
-    <a href="#paslaugos">Paslaugos</a>
-    <a href="#studija">Studija</a>
-    <a href="#darbai">Darbai</a>
-    <a href="#uzklausa">Užklausa</a>
+    <div class="nav__panel-in">
+      <a href="#darbas">Prieš ir po</a>
+      <a href="#paslaugos">Paslaugos</a>
+      <a href="#studija">Studija</a>
+      <a href="#darbai">Darbai</a>
+      <a href="#video">Video</a>
+      <a href="#uzklausa">Užklausa</a>
+    </div>
     <a class="nav__panel-tel" href="tel:+37063333969">+370 633 33969</a>
   </div>
 </header>
@@ -63,12 +73,14 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero__plate">
-    <img src="img/hero.webp" alt="Geltonas Lamborghini Urus iš priekio Minerda studijoje tarp šviesos juostų" fetchpriority="high">
+    <img src="img/hero.webp" srcset="img/hero-xs.webp 800w, img/hero-sm.webp 1100w, img/hero.webp 2568w" sizes="100vw"
+         width="2568" height="1720"
+         alt="Geltonas Lamborghini Urus iš priekio Minerda studijoje tarp šviesos juostų" fetchpriority="high">
   </div>
   <div class="wrap hero__in">
-    <h1>Įlenkimų šalinimas<span class="hero__l2"><em class="hero__au">be dažymo</em> Kaune</span></h1>
+    <h1><span class="hero__l1">Įlenkimų šalinimas</span><span class="hero__l2"><em class="hero__au">be dažymo</em> Kaune</span></h1>
     <div class="hero__cols">
-      <p class="hero__sub">Meninis lyginimas, kėbulo poliravimas ir Ceramic&nbsp;Pro nanodanga.</p>
+      <p class="hero__sub">Meninis lyginimas, kėbulo poliravimas ir keraminė nanodanga.</p>
       <div class="hero__act">
         <a class="btn" href="#uzklausa">Įvertinti pagal nuotrauką</a>
       </div>
@@ -82,8 +94,9 @@
   <div class="wrap">
     <div class="ba-grid">
     <aside class="ba-rail rv">
+      <p class="ix">01</p>
       <h2>Prieš ir po</h2>
-      <p class="lead">Įlenkimus tikriname šviesos atspindžiu. Ties pažeidimu atspindžio juostos iškrypsta, po remonto jos vėl lygios.</p>
+      <p class="lead">Tie patys kėbulo elementai prieš remontą ir po jo. Patraukite slankiklį.</p>
       <ol class="ba-index" id="baIndex">
         <li><a href="#p-bortelis">Stogo bortelis<span>tamsiai mėlynas kėbulas</span></a></li>
         <li><a href="#p-arka">Galinė arka<span>tamsus visureigis</span></a></li>
@@ -93,65 +106,34 @@
     </aside>
     <div class="ba-flow">
 
-    <figure class="ba ba--tall rv" id="p-bortelis">
-      <div class="ba__duo">
-        <div class="ba__cell">
-          <p class="ba__tag">Prieš</p>
-          <img class="ba__img" src="img/pair-rail-before.webp" alt="Stogo bortelis su PDR lempos atspindžiu: juostos banguoja, matyti keli smulkūs įlenkimai" loading="lazy">
-        </div>
-        <div class="ba__cell">
-          <p class="ba__tag">Po</p>
-          <img class="ba__img" src="img/pair-rail-after.webp" alt="Tas pats stogo bortelis po lyginimo: lempos juostos lygios" loading="lazy">
-        </div>
-      </div>
-      <figcaption class="ba__cap">Tamsiai mėlynas kėbulas · stogo bortelis · meninis lyginimas be dažymo.</figcaption>
-    </figure>
-
-    <figure class="ba ba--tall rv" id="p-arka">
-      <div class="ba__duo">
-        <div class="ba__cell">
-          <p class="ba__tag">Prieš</p>
-          <img class="ba__img" src="img/pair-arch-before.webp" alt="Galinė arka su šviesos lentos atspindžiu: juostos susispaudžia ties įlenkimu" loading="lazy">
-        </div>
-        <div class="ba__cell">
-          <p class="ba__tag">Po</p>
-          <img class="ba__img" src="img/pair-arch-after.webp" alt="Ta pati arka po lyginimo: atspindžio juostos eina tolygiai" loading="lazy">
-        </div>
-      </div>
-      <figcaption class="ba__cap">Tamsus visureigis · galinė arka · meninis lyginimas be dažymo.</figcaption>
-    </figure>
-
-    <figure class="ba ba--tall rv" id="p-briauna">
-      <div class="ba__duo">
-        <div class="ba__cell">
-          <p class="ba__tag">Prieš</p>
-          <img class="ba__img" src="img/pair-hood-before.webp" alt="Bronzinis kapotas su gilia įdauba ties priekine briauna virš grotelių" loading="lazy">
-        </div>
-        <div class="ba__cell">
-          <p class="ba__tag">Po</p>
-          <img class="ba__img" src="img/pair-hood-after.webp" alt="Tas pats kapotas po meninio lyginimo: briauna tiesi" loading="lazy">
-        </div>
-      </div>
-      <figcaption class="ba__cap">Bronzinis kapotas · įlenkimas ties briauna · meninis lyginimas be dažymo.</figcaption>
-    </figure>
-
-    <figure class="ba ba--sq rv" id="p-sparnas">
-      <div class="ba__duo">
-        <div class="ba__cell">
-          <p class="ba__tag">Prieš</p>
-          <img class="ba__img" src="img/pair-quarter-before.webp" alt="Pilko VW galinis sparnas su gilia įduba virš rato arkos, šalia degalų dangtelio" loading="lazy">
-        </div>
-        <div class="ba__cell">
-          <p class="ba__tag">Po</p>
-          <img class="ba__img" src="img/pair-quarter-after.webp" alt="Tas pats sparnas po lyginimo: plokštuma virš arkos lygi" loading="lazy">
-        </div>
-      </div>
-      <figcaption class="ba__cap">VW · galinis sparnas virš arkos · meninis lyginimas be dažymo.</figcaption>
-    </figure>
+      <div class="cw rv" id="baMain"
+           data-ba
+           data-pairs='[
+             {"id":"p-bortelis","b":"img/pair-rail-before.webp","a":"img/pair-rail-after.webp","t":"Stogo bortelis","ab":"Stogo bortelis su PDR lempos atspindžiu: juostos banguoja, matyti keli smulkūs įlenkimai","aa":"Tas pats stogo bortelis po lyginimo: lempos juostos lygios","c":"Tamsiai mėlynas kėbulas · stogo bortelis · meninis lyginimas be dažymo."},
+             {"id":"p-arka","b":"img/pair-arch-before.webp","a":"img/pair-arch-after.webp","t":"Galinė arka","ab":"Galinė arka su šviesos lentos atspindžiu: juostos susispaudžia ties įlenkimu","aa":"Ta pati arka po lyginimo: atspindžio juostos eina tolygiai","c":"Tamsus visureigis · galinė arka · meninis lyginimas be dažymo."},
+             {"id":"p-briauna","b":"img/pair-hood-before.webp","a":"img/pair-hood-after.webp","t":"Kapoto briauna","ab":"Bronzinis kapotas su gilia įdauba ties priekine briauna virš grotelių","aa":"Tas pats kapotas po meninio lyginimo: briauna tiesi","c":"Bronzinis kapotas · įlenkimas ties briauna · meninis lyginimas be dažymo."},
+             {"id":"p-sparnas","b":"img/pair-quarter-before.webp","a":"img/pair-quarter-after.webp","t":"Galinis sparnas","ab":"Pilko VW galinis sparnas su gilia įduba virš rato arkos, šalia degalų dangtelio","aa":"Tas pats sparnas po lyginimo: plokštuma virš arkos lygi","c":"VW · galinis sparnas virš arkos · meninis lyginimas be dažymo."}
+           ]'><noscript><div class="cw__ns"><figure><img src="img/pair-rail-before.webp" srcset="img/pair-rail-before-sm.webp 800w, img/pair-rail-before.webp 1284w" sizes="(max-width:760px) 50vw, 33vw" alt="Stogo bortelis su PDR lempos atspindžiu: juostos banguoja, matyti keli smulkūs įlenkimai"><figcaption>Prieš</figcaption></figure><figure><img src="img/pair-rail-after.webp" srcset="img/pair-rail-after-sm.webp 800w, img/pair-rail-after.webp 1284w" sizes="(max-width:760px) 50vw, 33vw" alt="Tas pats stogo bortelis po lyginimo: lempos juostos lygios"><figcaption>Po</figcaption></figure><p class="cw__cap">Tamsiai mėlynas kėbulas · stogo bortelis · meninis lyginimas be dažymo.</p></div></noscript></div>
 
     </div>
     </div>
+  </div>
+</section>
 
+<!-- C1 · pdr loop, straight after the before/after block -->
+<section class="sec sec--clip">
+  <div class="wrap">
+    <div class="mvid mvid--flush rv">
+      <video class="v" autoplay muted loop playsinline preload="metadata"
+         poster="public/video/pdr.webp" data-webm="public/video/pdr.webm" data-mp4="public/video/pdr.mp4"
+         aria-label="Kėbulo plokštuma po lyginimo"></video>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec sec--why">
+  <div class="wrap">
     <div class="cmp rv">
       <div class="cmp__grid">
         <div class="cmp__body">
@@ -159,23 +141,17 @@
             <h3>Kodėl be dažymo</h3>
           </div>
           <table class="cmp__t">
-            <thead><tr><th scope="col">Kriterijus</th><th scope="col">Meninis lyginimas</th><th scope="col">Dažymas</th></tr></thead>
+            <thead><tr><th scope="col" class="cmp__t-k">Kriterijus</th><th scope="col">Meninis lyginimas</th><th scope="col">Dažymas</th></tr></thead>
             <tbody>
-              <tr><th scope="row">Gamyklinis lakas</th><td class="y" data-l="Meninis lyginimas">išsaugomas</td><td class="n" data-l="Dažymas">nušlifuojamas</td></tr>
-              <tr><th scope="row">Glaistas</th><td class="y" data-l="Meninis lyginimas">nenaudojamas</td><td class="n" data-l="Dažymas">naudojamas</td></tr>
-              <tr><th scope="row">Dažų storio matuoklis</th><td class="y" data-l="Meninis lyginimas">rodo originalą</td><td class="n" data-l="Dažymas">rodo perdažymą</td></tr>
-              <tr><th scope="row">Spalva</th><td class="y" data-l="Meninis lyginimas">lieka gamyklinė</td><td class="n" data-l="Dažymas">derinama</td></tr>
-              <tr><th scope="row">Automobilio istorija</th><td class="y" data-l="Meninis lyginimas">be perdažymo</td><td class="n" data-l="Dažymas">su perdažymu</td></tr>
+              <tr><th scope="row">Gamyklinis lakas</th><td class="y">išsaugomas</td><td class="n">nušlifuojamas</td></tr>
+              <tr><th scope="row">Glaistas</th><td class="y">nenaudojamas</td><td class="n">naudojamas</td></tr>
+              <tr><th scope="row">Dažų storio matuoklis</th><td class="y">rodo originalą</td><td class="n">rodo perdažymą</td></tr>
+              <tr><th scope="row">Spalva</th><td class="y">lieka gamyklinė</td><td class="n">derinama</td></tr>
+              <tr><th scope="row">Automobilio istorija</th><td class="y">be perdažymo</td><td class="n">su perdažymu</td></tr>
             </tbody>
           </table>
           <p class="cmp__note">Ne kiekvieną pažeidimą galima ištaisyti PDR metodu, nes lakas turi būti sveikas. Ar jūsų atveju įmanoma, pasakysime iš nuotraukos arba apžiūrėję vietoje.</p>
           <a class="btn cmp__cta" href="#uzklausa">Įvertinti pagal nuotrauką</a>
-        </div>
-        <div class="cmp__media">
-          <video id="pdrVid" poster="img/pdr-poster.webp" muted loop playsinline preload="none"
-                 aria-label="Šviesos lenta vedama išilgai kėbulo plokštumos">
-            <source src="img/pdr.mp4" type="video/mp4">
-          </video>
         </div>
       </div>
     </div>
@@ -187,23 +163,18 @@
   <div class="wrap">
     <div class="ba-grid">
       <aside class="ba-rail rv">
+        <p class="ix">02</p>
         <h2>Krušos įdaubas išlyginame</h2>
         <p class="lead">Kruša palieka dešimtis smulkių įdaubų stoge ir kapote. Kiekvieną jų išspaudžiame atskirai be dažymo, lakas lieka gamyklinis.</p>
       </aside>
       <div class="ba-flow">
-        <figure class="ba rv">
-          <div class="ba__duo">
-            <div class="ba__cell">
-              <p class="ba__tag">Prieš</p>
-              <img class="ba__img" src="img/hail-before.webp" alt="Stogas po krušos: šviesoje matyti dešimtys smulkių įdaubų" loading="lazy">
-            </div>
-            <div class="ba__cell">
-              <p class="ba__tag">Po</p>
-              <img class="ba__img" src="img/hail-after.webp" alt="Tas pats stogas išlygintas: šviesos juosta atsispindi lygiai" loading="lazy">
-            </div>
-          </div>
-          <figcaption class="ba__cap">Bronzinis stogas · krušos įdaubos · meninis lyginimas be dažymo.</figcaption>
-        </figure>
+
+        <div class="cw rv"
+             data-ba
+             data-pairs='[
+               {"id":"p-krusa","b":"img/hail-before.webp","a":"img/hail-after.webp","t":"Krušos įdaubos","ab":"Stogas po krušos: šviesoje matyti dešimtys smulkių įdaubų","aa":"Tas pats stogas išlygintas: šviesos juosta atsispindi lygiai","c":"Bronzinis stogas · krušos įdaubos · meninis lyginimas be dažymo."}
+             ]'><noscript><div class="cw__ns"><figure><img src="img/hail-before.webp" srcset="img/hail-before-sm.webp 800w, img/hail-before.webp 1284w" sizes="(max-width:760px) 50vw, 33vw" alt="Stogas po krušos: šviesoje matyti dešimtys smulkių įdaubų"><figcaption>Prieš</figcaption></figure><figure><img src="img/hail-after.webp" srcset="img/hail-after-sm.webp 800w, img/hail-after.webp 1284w" sizes="(max-width:760px) 50vw, 33vw" alt="Tas pats stogas išlygintas: šviesos juosta atsispindi lygiai"><figcaption>Po</figcaption></figure><p class="cw__cap">Bronzinis stogas · krušos įdaubos · meninis lyginimas be dažymo.</p></div></noscript></div>
+
       </div>
     </div>
   </div>
@@ -214,23 +185,16 @@
   <div class="wrap">
     <div class="ba-grid">
       <aside class="ba-rail rv">
+        <p class="ix">03</p>
         <h2>Poliravimas nuima sūkurius</h2>
-        <p class="lead">Sūkurius, plovyklos žymes ir smulkius įbrėžimus nupoliruojame pakopomis. Atspindyje lieka tik šviesos šaltinis.</p>
+        <p class="lead">Sūkurius, plovyklos žymes ir smulkius įbrėžimus nupoliruojame pakopomis, lako nuimant tiek, kiek būtina.</p>
       </aside>
       <div class="ba-flow">
-        <figure class="ba rv">
-          <div class="ba__duo">
-            <div class="ba__cell">
-              <p class="ba__tag">Prieš</p>
-              <img class="ba__img" src="img/polish-before.webp" alt="Raudonas lakas prieš poliravimą: sūkuriai aplink šviesos atspindį" loading="lazy">
-            </div>
-            <div class="ba__cell">
-              <p class="ba__tag">Po</p>
-              <img class="ba__img" src="img/polish-after.webp" alt="Tas pats lakas po poliravimo: atspindyje tik lempos, be sūkurių" loading="lazy">
-            </div>
-          </div>
-          <figcaption class="ba__cap">Raudonas kapotas · sūkuriai ir plovyklos žymės · pakopinis poliravimas.</figcaption>
-        </figure>
+        <div class="cw rv"
+             data-ba
+             data-pairs='[
+               {"id":"p-polish","b":"img/polish-before.webp","a":"img/polish-after.webp","t":"Sūkuriai","ab":"Raudonas lakas prieš poliravimą: sūkuriai aplink šviesos atspindį","aa":"Tas pats lakas po poliravimo: atspindyje tik lempos, be sūkurių","c":"Raudonas kapotas · sūkuriai ir plovyklos žymės · pakopinis poliravimas."}
+             ]'><noscript><div class="cw__ns"><figure><img src="img/polish-before.webp" srcset="img/polish-before-sm.webp 800w, img/polish-before.webp 1284w" sizes="(max-width:760px) 50vw, 33vw" alt="Raudonas lakas prieš poliravimą: sūkuriai aplink šviesos atspindį"><figcaption>Prieš</figcaption></figure><figure><img src="img/polish-after.webp" srcset="img/polish-after-sm.webp 800w, img/polish-after.webp 1284w" sizes="(max-width:760px) 50vw, 33vw" alt="Tas pats lakas po poliravimo: atspindyje tik lempos, be sūkurių"><figcaption>Po</figcaption></figure><p class="cw__cap">Raudonas kapotas · sūkuriai ir plovyklos žymės · pakopinis poliravimas.</p></div></noscript></div>
       </div>
     </div>
   </div>
@@ -241,32 +205,37 @@
   <div class="wrap">
     <div class="head head--split rv">
       <div class="head__l">
+        <p class="ix">04</p>
         <h2>Ką darome</h2>
         <p class="lead">Pirmiausia ištaisome kėbulo formą, tada nupoliruojame paviršių ir tik tada dengiame apsauginę dangą.</p>
       </div>
       <div class="head__r">
         <dl class="more">
           <div><dt>Taip pat atliekame</dt><dd>Krušos pažeidimų šalinimas · žibintų poliravimas · salono poliravimas · gilioji dekontaminacija (dervos, metalo dulkės) · įdaužų maskavimas dažais pagal gamyklinį spalvos kodą · ardymo ir surinkimo darbai</dd></div>
-          <div><dt>Įkainis</dt><dd><strong>nuo 40 €/val.</strong> Galutinė suma priklauso nuo pažeidimų kiekio ir kėbulo būklės.</dd></div>
+          <div><dt>Įkainis</dt><dd><strong class="price">nuo 40 €/val.</strong> Galutinė suma priklauso nuo pažeidimų kiekio ir kėbulo būklės.</dd></div>
         </dl>
       </div>
     </div>
 
     <ol class="svc">
       <li class="svc__i rv">
-        <div class="svc__media"><img src="img/svc-pdr-lg.webp" alt="PDR šviesos lenta virš kėbulo detalės — atspindžio juostos ties įlenkimu susisuka" loading="lazy"></div>
+        <div class="svc__media svc__media--v">
+          <video class="v" autoplay muted loop playsinline preload="metadata"
+         poster="public/video/paslauga-lyginimas.webp" data-webm="public/video/paslauga-lyginimas.webm" data-mp4="public/video/paslauga-lyginimas.mp4"
+         aria-label="Meninis lyginimas: kėbulo detalė po remonto"></video>
+        </div>
         <h3>Meninis lyginimas</h3>
         <p>Įlenkimus išspaudžiame iš vidinės pusės arba ištraukiame iš išorės, kai prieigos į vidų nėra. Tvarkome duris, sparnus, statramsčius, krušos pažeidimus.</p>
       </li>
       <li class="svc__i rv">
-        <div class="svc__media"><img src="img/svc-polish-lg.webp" alt="Juodas Audi e-tron po poliravimo — šešiakampio šviesos tinklo atspindys dangtyje" loading="lazy"></div>
+        <div class="svc__media"><img src="img/svc-polish-lg.webp" srcset="img/svc-polish-lg-sm.webp 800w, img/svc-polish-lg.webp 810w" sizes="(max-width:760px) 100vw, 33vw" alt="Juodas Audi e-tron po poliravimo — šešiakampio šviesos tinklo atspindys dangtyje" loading="lazy"></div>
         <h3>Kėbulo poliravimas</h3>
-        <p>Pakopomis nupoliruojame sūkurius, plovyklos žymes ir smulkius įbrėžimus. Nupoliruotas paviršius kartu yra paruošimas dangai.</p>
+        <p>Pakopomis nupoliruojame sūkurius, plovyklos žymes ir smulkius įbrėžimus.</p>
       </li>
       <li class="svc__i rv">
         <div class="svc__media"><img src="img/svc-ceramic-lg.webp" alt="Juodo BMW i5 kapotas su šešiakampio apšvietimo atspindžiais studijoje" loading="lazy"></div>
         <h3>Apsauginė danga</h3>
-        <p>Keraminę arba grafeno dangą dengiame ant jau sutvarkyto paviršiaus, dirbame su Ceramic&nbsp;Pro ir Artdeshine sistemomis. Kėbulas tampa lengviau plaunamas, o blizgesys laikosi ilgiau nei po vaško.</p>
+        <p>Keraminę arba grafeno dangą dengiame ant jau sutvarkyto paviršiaus. Kėbulas tampa lengviau plaunamas, o blizgesys laikosi ilgiau nei po vaško.</p>
       </li>
     </ol>
   </div>
@@ -275,17 +244,11 @@
 <!-- STUDIO -->
 <section class="sec sec--studio" id="studija">
   <div class="wrap">
-    <div class="head head--split rv">
+    <div class="head rv">
       <div class="head__l">
+        <p class="ix">05</p>
         <h2>Studija</h2>
-        <p class="lead">Studijoje įrengtas šešiakampis LED apšvietimas ir mobilios šviesos lentos. Visus darbus atlieka pats Mindaugas.</p>
-      </div>
-      <div class="head__r">
-        <dl class="facts">
-          <div><dt>Patirtis</dt><dd>11 metų</dd></div>
-          <div><dt>Įvertinimas</dt><dd>5,0</dd></div>
-          <div><dt>Rekomendacijos</dt><dd>100 % iš 18</dd></div>
-        </dl>
+        <p class="lead">Studija V. Krėvės pr. 129A, Kaune. Visus darbus atlieka pats Mindaugas.</p>
       </div>
     </div>
   </div>
@@ -302,30 +265,67 @@
 <section class="sec sec--gal" id="darbai">
   <div class="wrap">
     <div class="head rv">
+      <p class="ix">06</p>
       <h2>Darbai</h2>
       <p class="lead">Baigti automobiliai studijos apšvietime.</p>
     </div>
-  <ul class="gal rv" id="gal">
+  </div>
+  <ul class="gal rv" id="gal" data-rail>
       <li>
         <figure class="gal__f">
-          <button type="button" class="gal__i" data-i="0"><img src="img/gal-m4-sm.webp" alt="Matinis žalias BMW M4 su anglies pluošto skirtuvu Minerda studijoje" loading="lazy"></button>
+          <button type="button" class="gal__i" data-i="0"><img src="img/gal-m4-sm.webp" width="700" height="467" alt="Matinis žalias BMW M4 su anglies pluošto skirtuvu Minerda studijoje" loading="lazy"></button>
           <figcaption class="gal__cap">BMW M4 · matinis žalias kėbulas</figcaption>
         </figure>
       </li>
       <li>
         <figure class="gal__f">
-          <button type="button" class="gal__i" data-i="1"><img src="img/gal-i5-front-sm.webp" alt="Juodas BMW i5 iš priekio: kapote šešiakampio apšvietimo atspindys" loading="lazy"></button>
+          <button type="button" class="gal__i" data-i="1"><img src="img/gal-i5-front-sm.webp" width="700" height="467" alt="Juodas BMW i5 iš priekio: kapote šešiakampio apšvietimo atspindys" loading="lazy"></button>
           <figcaption class="gal__cap">BMW i5 · šešiakampis atspindys kapote</figcaption>
         </figure>
       </li>
       <li>
         <figure class="gal__f">
-          <button type="button" class="gal__i" data-i="2"><img src="img/gal-i5-rear-sm.webp" alt="Juodas BMW i5 iš galo studijos apšvietime" loading="lazy"></button>
+          <button type="button" class="gal__i" data-i="2"><img src="img/gal-i5-rear-sm.webp" width="700" height="467" alt="Juodas BMW i5 iš galo studijos apšvietime" loading="lazy"></button>
           <figcaption class="gal__cap">BMW i5 · galas studijos šviesoje</figcaption>
         </figure>
       </li>
     </ul>
+</section>
+
+<!-- VIDEO -->
+<section class="sec sec--video" id="video">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="ix">07</p>
+      <h2>Video</h2>
+    </div>
   </div>
+  <ul class="vrail rv" data-rail>
+    <li class="vrail__i">
+      <div class="vrail__m">
+        <video class="v" autoplay muted loop playsinline preload="metadata"
+         poster="public/video/reel-audi-q4.webp" data-webm="public/video/reel-audi-q4.webm" data-mp4="public/video/reel-audi-q4.mp4"
+         aria-label="Audi Q4 e-tron durys po lyginimo"></video>
+      </div>
+      <p class="cap">Audi Q4 e-tron · durys</p>
+    </li>
+    <li class="vrail__i">
+      <div class="vrail__m">
+        <video class="v" autoplay muted loop playsinline preload="metadata"
+         poster="public/video/reel-tesla.webp" data-webm="public/video/reel-tesla.webm" data-mp4="public/video/reel-tesla.mp4"
+         aria-label="Tesla durys po lyginimo"></video>
+      </div>
+      <p class="cap">Tesla · durys</p>
+    </li>
+    <li class="vrail__i">
+      <div class="vrail__m">
+        <video class="v" autoplay muted loop playsinline preload="metadata"
+         poster="public/video/reel-bmw-x3.webp" data-webm="public/video/reel-bmw-x3.webm" data-mp4="public/video/reel-bmw-x3.mp4"
+         aria-label="BMW X3 sparnas po lyginimo"></video>
+      </div>
+      <p class="cap">BMW X3 · sparnas</p>
+    </li>
+  </ul>
 </section>
 
 <!-- FORM -->
@@ -333,14 +333,15 @@
   <div class="wrap">
     <div class="form-grid">
       <div class="form-grid__l rv">
+        <p class="ix">08</p>
         <h2>Atsiųskite įlenkimo nuotrauką.</h2>
-        <p class="lead">Nufotografuokite pažeidimą taip, kad kadre matytųsi šviesos atspindys. Iš jo įvertiname įlenkimo gylį ir atsakome telefonu arba el. paštu.</p>
+        <p class="lead">Įvertinsime iš nuotraukos ir atsakysime telefonu arba el. paštu.</p>
         <ul class="contacts">
           <li><span class="mono">Telefonas</span><a href="tel:+37063333969">+370 633 33969</a></li>
           <li><span class="mono">El. paštas</span><a href="mailto:bfr082@gmail.com">bfr082@gmail.com</a></li>
           <li><span class="mono">Messenger</span><a href="https://m.me/100054326658601" target="_blank" rel="noopener">Rašyti žinutę</a></li>
           <li><span class="mono">Instagram</span><a href="https://www.instagram.com/_minerda_/" target="_blank" rel="noopener">@_minerda_</a></li>
-          <li><span class="mono">Adresas</span><a href="https://www.google.com/maps/search/?api=1&query=V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas" target="_blank" rel="noopener">V. Krėvės pr. 129A, Kaunas</a></li>
+          <li><span class="mono">Adresas</span><a href="https://www.google.com/maps/search/?api=1&amp;query=V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas" target="_blank" rel="noopener">V. Krėvės pr. 129A, Kaunas</a></li>
           <li><span class="mono">Darbo laikas</span><span>I–V 09:00–17:00 · VI–VII nedirba</span></li>
         </ul>
       </div>
@@ -380,24 +381,22 @@
 <footer class="foot">
   <div class="wrap foot__in">
     <div class="foot__brand">
-      <img src="img/minerda-logo-400.png" alt="Minerda" loading="lazy">
-      <p>Meninis lyginimas · poliravimas · Ceramic&nbsp;Pro nanodanga</p>
+      <picture><source srcset="img/minerda-logo-400.webp" type="image/webp"><img src="img/minerda-logo-400.png" width="400" height="93" alt="Minerda" loading="lazy"></picture>
+      <p>Meninis lyginimas · poliravimas · keraminė nanodanga</p>
     </div>
-    <div class="foot__col">
+    <div class="foot__col foot__col--addr">
       <p class="mono">Studija</p>
-      <p>V. Krėvės pr. 129A<br>LT-51100 Kaunas<br>I–V 09:00–17:00 · VI–VII nedirba</p>
+      <p class="foot__lines"><span>V. Krėvės pr. 129A, LT-51100 Kaunas</span><b class="sep"> · </b><span>I–V 09:00–17:00 · VI–VII nedirba</span></p>
     </div>
-    <div class="foot__col">
+    <div class="foot__col foot__col--con">
       <p class="mono">Kontaktai</p>
-      <p><a href="tel:+37063333969">+370 633 33969</a><br>
-      <a href="mailto:bfr082@gmail.com">bfr082@gmail.com</a><br>
-      <a href="https://www.facebook.com/profile.php?id=100054326658601" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/_minerda_/" target="_blank" rel="noopener">Instagram</a></p>
+      <p class="foot__lines"><span><a href="tel:+37063333969">+370 633 33969</a></span><b class="sep"> · </b><span><a href="mailto:bfr082@gmail.com">bfr082@gmail.com</a></span><b class="sep"> · </b><span><a href="https://www.facebook.com/profile.php?id=100054326658601" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/_minerda_/" target="_blank" rel="noopener">Instagram</a></span></p>
     </div>
     <p class="foot__legal">© <span id="yr">2026</span> MINERDA, M. Bakanovo IDV</p>
   </div>
 </footer>
 
-<div class="callbar">
+<div class="callbar" id="callbar">
   <a href="tel:+37063333969">Skambinti</a>
   <a href="#uzklausa" class="callbar__b">Įvertinti pagal nuotrauką</a>
 </div>
@@ -413,6 +412,6 @@
 </div>
 
 <script src="lenis.min.js"></script>
-<script src="main.js?v=20260819"></script>
+<script src="main.js?v=20260906"></script>
 </body>
 </html>

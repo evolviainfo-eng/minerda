@@ -12,6 +12,10 @@
   --muted:#9C948A;
   --gold:#C9A24D;
   --line:rgba(237,231,221,.14);
+  --line-2:#2A2A2A;
+  --body-c:#C8C8C8;
+  --cap-c:#9A9A9A;
+  --desc-c:#B5B5B5;
 
   --f:"Archivo","Helvetica Neue",Arial,sans-serif;
   --m:"IBM Plex Mono",ui-monospace,monospace;
@@ -45,6 +49,7 @@ body{
   overflow-x:hidden; overflow-x:clip;  /* clip, ne hidden — hidden laužo sticky */
 }
 img{max-width:100%; height:auto; display:block; border-radius:0}
+table,th,td,input,textarea,button,select,optgroup{font-family:inherit; font-size:inherit; line-height:inherit}
 a{color:inherit; text-decoration:none}
 h1,h2,h3{margin:0; font-weight:300; letter-spacing:-.028em; text-wrap:balance}
 p{margin:0; text-wrap:pretty}
@@ -160,18 +165,8 @@ p{margin:0; text-wrap:pretty}
 .ba-index li.is-cur a{color:var(--text)}
 .ba-index li.is-cur a::before{transform:scaleY(1)}
 
-/* two static frames, 96px between pairs */
-.ba{margin:0 auto; max-width:1120px}
-.ba + .ba{margin-top:var(--gap-pair)}
-.ba__duo{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-.ba__tag{display:block; color:var(--muted); margin:0 0 10px}
-.ba__img{width:100%; aspect-ratio:3/2; object-fit:cover; background:var(--ink-2)}
-.ba--tall .ba__img{aspect-ratio:4/5}
-.ba--sq .ba__img{aspect-ratio:1/1}
-.ba__cap{margin-top:var(--s3); color:var(--muted); font-size:var(--t-sm); max-width:62ch}
-
 /* ── comparison + light-board video ──────────────────────── */
-.cmp{margin-top:var(--gap-pair)}
+.cmp{margin-top:0}
 .cmp__grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,320px); gap:var(--gap-sec); align-items:start}
 .cmp__media{margin:0}
 .cmp__media video{width:100%; aspect-ratio:9/16; object-fit:cover; display:block; background:var(--ink-2)}
@@ -228,7 +223,7 @@ p{margin:0; text-wrap:pretty}
 .contacts a:hover{border-bottom-color:var(--text)}
 .field{margin-bottom:var(--s3)}
 .field label{display:block; color:var(--muted); margin-bottom:10px}
-.field .opt{text-transform:none; letter-spacing:.02em; opacity:.7}
+.field .opt{text-transform:none; letter-spacing:.02em; color:#A79E93}
 .field input,.field textarea{
   -webkit-appearance:none; appearance:none;
   width:100%; background:transparent; border:1px solid var(--line); border-radius:var(--r);
@@ -254,7 +249,7 @@ p{margin:0; text-wrap:pretty}
 .form__status{margin-top:var(--s3); font-size:var(--t-sm); color:var(--muted)}
 .form__status.is-ok{color:var(--text)}
 .form__status.is-bad{color:var(--gold)}
-.form__fine{margin-top:var(--s2); font-size:var(--t-sm); color:var(--muted); opacity:.75}
+.form__fine{margin-top:var(--s2); font-size:var(--t-sm); color:#A79E93}
 #submit[disabled]{opacity:.55; cursor:default}
 
 /* ── footer ──────────────────────────────────────────────── */
@@ -263,10 +258,12 @@ p{margin:0; text-wrap:pretty}
 .foot__brand img{width:150px; margin-bottom:var(--s2)}
 .foot__brand p{font-size:var(--t-sm); color:var(--muted)}
 .foot__col p:first-child{margin-bottom:10px}
+.foot__lines span{display:block}
+.foot__lines .sep{display:none}
 .foot__col p{font-size:var(--t-sm); color:var(--muted)}
 .foot__col a{color:var(--text); border-bottom:1px solid transparent; transition:border-color var(--d-ui) var(--e)}
 .foot__col a:hover{border-bottom-color:var(--text)}
-.foot__legal{grid-column:1/-1; margin-top:var(--gap-block); padding-top:var(--s3); border-top:1px solid var(--line); color:var(--muted); opacity:.75}
+.foot__legal{grid-column:1/-1; margin-top:var(--gap-block); padding-top:var(--s3); border-top:1px solid var(--line); color:#A79E93}
 
 .callbar{display:none}
 
@@ -295,11 +292,11 @@ p{margin:0; text-wrap:pretty}
 }
 /* media atidengiama clip'u iš viršaus, kartu su lengvu scale settle —
    stebimas .rv TĖVAS, ne pats img (clip-path ant stebimo elemento žudo IO) */
-.js .rv .ba__img,.js .rv .svc__media img,.js .gal.rv img{
+.js .rv .cw__l img,.js .rv .svc__media img,.js .rv .mvid video,.js .gal.rv img{
   clip-path:inset(0 0 100% 0); transform:scale(1.04);
   transition:clip-path 900ms var(--e2) var(--rd,0ms), transform 900ms var(--e2) var(--rd,0ms);
 }
-.js .rv.is-in .ba__img,.js .rv.is-in .svc__media img,.js .gal.rv.is-in img{
+.js .rv.is-in .cw__l img,.js .rv.is-in .svc__media img,.js .rv.is-in .mvid video,.js .gal.rv.is-in img{
   clip-path:inset(0 0 0 0); transform:none;
 }
 /* hover transition grąžinama po reveal'o */
@@ -357,21 +354,8 @@ p{margin:0; text-wrap:pretty}
   .more > div{grid-template-columns:1fr; gap:6px}
   .svc__i{grid-template-columns:104px minmax(0,1fr)}
   .gal{grid-template-columns:repeat(2,1fr)}
-  /* kruša ir poliravimas — smulkių defektų poros: 390px ekrane 3:2 kadruose defektų
-     nesimato, gilesnis 4:5 crop'as centruoja į pažeidimo zoną */
-  #krusa .ba__img,#poliravimas .ba__img{aspect-ratio:4/5}
-  /* 3 darbų kadrai 2 stulpeliuose paliktų našlaitį — paskutinis per visą plotį */
-  .gal li:last-child{grid-column:1/-1}
   .foot__in{grid-template-columns:1fr}
   .foot{padding-bottom:104px}
-  .callbar{
-    display:grid; grid-template-columns:1fr 1fr; position:fixed; left:0; right:0; bottom:0; z-index:150;
-    background:rgba(18,16,16,.94); backdrop-filter:blur(14px); border-top:1px solid var(--line);
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom)); gap:8px
-  }
-  .callbar a{display:flex; align-items:center; justify-content:center; min-height:48px; border-radius:var(--r);
-    font-size:var(--t-sm); font-weight:500; border:1px solid var(--line); color:var(--text)}
-  .callbar .callbar__b{background:var(--gold); color:var(--ink); border-color:var(--gold)}
   .lb{padding:56px 16px}
   .lb__nav{width:44px; height:44px; margin-top:-22px}
   .lb__nav--p{left:8px} .lb__nav--n{right:8px}
@@ -382,17 +366,354 @@ p{margin:0; text-wrap:pretty}
 html.qa .hero__plate{height:560px}
 html.qa .rv{opacity:1 !important; transform:none !important}
 html.qa .hero__plate img{animation:none}
-html.qa .rv img,html.qa .rv .ba__img{transform:none !important; clip-path:none !important}
+html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !important}
 
-/* ≤760px ir reduced-motion: viskas statiška */
-@media (max-width:760px){
-  .js .hero__plate img{animation:none}
-  .js .rv{opacity:1; transform:none; transition:none}
-  .js .rv .ba__img,.js .rv .svc__media img,.js .gal.rv img{transform:none; transition:none; clip-path:none}
-}
+/* reduced-motion tvarkoma žemiau — mobile judesys nebeišjungiamas */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important}
   .js .hero__plate img{animation:none}
   .js .rv{opacity:1; transform:none}
-  .js .rv .ba__img,.js .rv .svc__media img,.js .gal.rv img{transform:none; clip-path:none}
+  .js .rv .cw__l img,.js .rv .svc__media img,.js .rv .mvid video,.js .gal.rv img{transform:none; clip-path:none}
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   COMPONENTS — before/after slider, media blocks, rails, motion
+   Judesys: tik transform/opacity, ease-out, 400–700ms.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* mono index above every H2 — vienintelis auksinis akcentas sekcijoje */
+.ix{font-family:var(--m); font-size:var(--t-label); font-weight:500; letter-spacing:.14em;
+  color:var(--gold); margin:0 0 12px}
+
+/* ── D1 · before / after ─────────────────────────────────────── */
+.cw{margin:0}
+.cw__stage{
+  position:relative; aspect-ratio:3/2; overflow:hidden; background:var(--ink-2);
+  border-radius:var(--r); border:1px solid var(--line-2);
+  touch-action:pan-y; cursor:ew-resize; -webkit-user-select:none; user-select:none;
+}
+.cw__l{position:absolute; inset:0}
+.cw__l img{width:100%; height:100%; object-fit:cover; -webkit-user-drag:none; pointer-events:none}
+.cw__l--b{clip-path:inset(0 calc(100% - var(--p,50%)) 0 0)}
+.cw__stage::before{
+  content:""; position:absolute; inset:0 0 auto; height:72px; z-index:2; pointer-events:none;
+  background:linear-gradient(180deg, rgba(18,16,16,.42), rgba(18,16,16,0));
+}
+.cw__lbl{
+  position:absolute; top:12px; z-index:3; margin:0;
+  font-family:var(--m); font-size:11px; font-weight:500; letter-spacing:.12em;
+  text-transform:uppercase; color:#fff; opacity:.7; pointer-events:none;
+}
+.cw__lbl--b{left:12px}
+.cw__lbl--a{right:12px}
+.cw__line{
+  position:absolute; top:0; bottom:0; left:var(--p,50%); z-index:4;
+  width:1px; background:rgba(255,255,255,.6); pointer-events:none;
+}
+.cw__knob{
+  position:absolute; top:50%; left:var(--p,50%); z-index:5;
+  width:36px; height:36px; margin:-18px 0 0 -18px; padding:0;
+  border:1px solid var(--gold); border-radius:50%; background:rgba(18,16,16,.55);
+  display:flex; align-items:center; justify-content:center; gap:3px; cursor:ew-resize;
+}
+.cw__knob svg{width:7px; height:11px; display:block; fill:none;
+  stroke:rgba(255,255,255,.85); stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round}
+.cw__cap{margin-top:14px; color:var(--cap-c); font-size:13px}
+/* noscript pora — tas pats kadras be slinkties */
+.cw__ns{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.cw__ns figure{margin:0}
+.cw__ns img{width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:var(--r); border:1px solid var(--line-2)}
+.cw__ns figcaption{margin-top:8px; font-family:var(--m); font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted)}
+.cw__ns .cw__cap{grid-column:1/-1}
+
+/* thumbnail strip — 56px squares, active gets the gold hairline */
+.cw__thumbs{
+  list-style:none; display:flex; gap:8px; margin:14px 0 0; padding:0;
+  overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+}
+.cw__thumbs::-webkit-scrollbar{display:none}
+.cw__thumbs li{flex:0 0 auto}
+.cw__t{
+  width:56px; height:56px; padding:0; border:1px solid var(--line-2); border-radius:var(--r);
+  background:var(--ink-2); overflow:hidden; cursor:pointer; display:block; opacity:.65;
+  transition:opacity 300ms var(--e), border-color 300ms var(--e);
+}
+.cw__t img{width:100%; height:100%; object-fit:cover}
+.cw__t.is-cur{opacity:1; border-color:var(--gold)}
+
+/* ── media block: full-bleed video ───────────────────────────── */
+.mvid{margin:var(--gap-block) 0 0}
+.mvid video{
+  width:100%; aspect-ratio:3/2; object-fit:cover; display:block; background:var(--ink-2);
+  border-radius:var(--r); border:1px solid var(--line-2);
+}
+.mvid--flush{margin:0}
+.mvid--wide video{aspect-ratio:16/9}
+.sec.sec--clip{padding-top:0}
+.sec.sec--why{padding-top:0}
+.js .sec--clip::before,.js .sec--why::before{content:none}
+.mvid--studio{margin:0 0 var(--gap-block)}
+.mvid--studio video{aspect-ratio:16/9}
+.svc__media--v{position:relative}
+.svc__media--v video{width:100%; height:100%; object-fit:cover; display:block; background:var(--ink-2)}
+
+/* ── iOS Low Power: autoplay užblokuotas → plona play ikona ──── */
+.vwrap{position:relative}
+.v-play{
+  position:absolute; left:50%; top:50%; width:44px; height:44px; margin:-22px 0 0 -22px;
+  padding:0; border:1px solid var(--gold); border-radius:50%; background:rgba(18,16,16,.45);
+  display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:3;
+  opacity:0; pointer-events:none; transition:opacity 300ms var(--e);
+}
+.v-play.is-on{opacity:1; pointer-events:auto}
+.v-play svg{width:14px; height:14px; display:block; margin-left:2px; fill:#fff}
+.v-play:active{transform:scale(.98)}
+
+/* ── C2 · video rail ─────────────────────────────────────────── */
+.vrail{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap-block)}
+.vrail__m{overflow:hidden; background:var(--ink-2); border-radius:var(--r); border:1px solid var(--line-2)}
+.vrail__m video{width:100%; aspect-ratio:9/16; object-fit:cover; display:block}
+.vrail .cap{margin-top:12px; color:var(--cap-c); font-size:13px}
+
+/* ── F3 · hairline drawn in between sections ─────────────────── */
+.sec,.foot{position:relative}
+.js .sec::before,.js .foot::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:1px; background:var(--line-2);
+  transform:scaleX(0); transform-origin:left; transition:transform 700ms var(--e);
+}
+.js .sec.is-in::before,.js .foot.is-in::before{transform:scaleX(1)}
+.sec--form{border-top:0}
+.foot{border-top:0}
+
+/* ── F7 · price ──────────────────────────────────────────────── */
+.more .price,.price{display:block; color:var(--gold); font-size:28px; font-weight:300; line-height:1.1;
+  letter-spacing:-.03em; margin-bottom:6px; font-variant-numeric:tabular-nums}
+
+/* ── F1 · hero: settle + line-by-line rise + parallax ────────── */
+.js .hero__plate img{animation:heroSettle 1800ms cubic-bezier(.22,.61,.36,1) both; will-change:transform}
+@keyframes heroSettle{from{transform:scale(1.06)}to{transform:scale(1)}}
+.js .hero h1 span,.js .hero__sub{display:block; opacity:0; transform:translate3d(0,18px,0)}
+.js .hero h1 span{animation:heroLine 620ms cubic-bezier(.22,.61,.36,1) both}
+.js .hero__sub{animation:heroLine 620ms cubic-bezier(.22,.61,.36,1) 300ms both}
+.js .hero__l1{animation-delay:100ms}
+.js .hero__l2{animation-delay:200ms}
+@keyframes heroLine{to{opacity:1; transform:translate3d(0,0,0)}}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE — 390/430px pirmiausia. Media edge-to-edge, tekstas 22px.
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width:760px){
+  :root{
+    --pad:22px; --gap-sec:48px; --gap-block:24px;
+    --t-h2:30px; --t-body:16px; --t-sm:15px;
+  }
+  body{font-size:16px; line-height:1.5; color:var(--body-c)}
+  .sec{padding:var(--gap-sec) 0}
+  .sec--ba{padding-top:var(--gap-sec)}
+  .head{margin-bottom:var(--s3)}
+  .head h2,.head h3,.ba-rail h2,.form-grid__l h2{
+    font-size:var(--t-h2); line-height:1.1; color:var(--text); letter-spacing:-.03em; margin-bottom:14px}
+  .lead{font-size:16px; line-height:1.5; color:var(--body-c)}
+
+  /* media pralaužia 22px paraštę */
+  .bleed,.cw__stage,.mvid,.svc__media{
+    margin-left:calc(var(--pad)*-1); margin-right:calc(var(--pad)*-1);
+    width:calc(100% + var(--pad)*2); max-width:none;
+  }
+  .cw__stage{border-left:0; border-right:0; border-radius:0}
+  .mvid video{border-left:0; border-right:0; border-radius:0}
+
+  /* B — hero: paantraštė ant nuotraukos, 24px iki adreso eilutės */
+  .hero__plate{height:56svh}
+  .hero__in{margin-top:-186px}
+  .hero h1{margin-bottom:18px}
+  .hero__sub{color:var(--text); opacity:.92}
+  .hero__meta{margin-top:24px; padding-top:16px}
+
+  /* D2 — slankiklis + miniatiūros */
+  .cw__cap{padding:0 var(--pad)}
+  .cw__thumbs{padding:0 var(--pad)}
+
+  /* D3 — #darbas: viena pora vietoj keturių */
+  .ba-rail .lead{margin-top:0}
+  .ba-grid{gap:14px}
+  .cw__cap{margin-top:10px}
+  .cw__thumbs{margin-top:10px}
+  .cmp{margin-top:var(--gap-sec)}
+  .cmp__grid{gap:0}
+
+  /* E3 — palyginimas: viena antraštės eilutė, be pakartotų etikečių */
+  .cmp__t{width:100%; table-layout:fixed; border-collapse:collapse}
+  .cmp__t thead{display:block}
+  .cmp__t thead tr{display:grid; grid-template-columns:1fr 1fr}
+  .cmp__t .cmp__t-k{display:none}
+  .cmp__t thead th{padding:0 0 10px; border-bottom:1px solid var(--line-2); font-size:10px; letter-spacing:.1em}
+  .cmp__t tbody{display:block}
+  .cmp__t tbody tr{display:grid; grid-template-columns:1fr 1fr;
+    border-bottom:1px solid var(--line-2); padding-bottom:12px}
+  .cmp__t tbody th{display:block; grid-column:1/-1; width:auto; padding:14px 0 4px; border:0;
+    font-family:var(--m); font-size:10px; font-weight:500; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted)}
+  .cmp__t td{display:block; width:auto; padding:0; border:0; font-size:15px}
+  .cmp__t td::before{content:none}
+  .cmp__note{margin-top:var(--s3); font-size:14px}
+  .cmp__cta{margin-top:var(--s3); width:100%}
+
+  /* E2 — paslaugų kortelė vertikali */
+  .svc{grid-template-columns:1fr; gap:0}
+  .svc__i{display:block; padding:14px 0}
+  .svc__i:first-child{padding-top:0}
+  .svc__i + .svc__i{border-top:1px solid var(--line-2)}
+  .svc__media{aspect-ratio:16/9; margin:0 calc(var(--pad)*-1) 14px; border-radius:0}
+  .svc__i h3{font-size:20px; color:var(--text); margin-bottom:8px; letter-spacing:-.02em}
+  .svc__i p{font-size:15px; color:var(--desc-c); line-height:1.5}
+  .more > div{grid-template-columns:1fr; gap:6px; padding:16px 0}
+  .more dd{font-size:15px; color:var(--desc-c)}
+  .more .price,.price{font-size:40px; margin-bottom:8px}
+
+  /* studija */
+  .quote{margin-top:var(--s3)}
+  .quote p{font-size:18px}
+  .facts dd{font-size:15px}
+
+  /* E4 — #darbai: horizontalus scroll-snap, 72vw kortelės */
+  .sec--gal .head{margin-bottom:var(--s3)}
+  .gal{
+    display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    padding:0 var(--pad) 4px; margin:0;
+  }
+  .gal::-webkit-scrollbar{display:none}
+  .gal > li{flex:0 0 72vw; scroll-snap-align:center}
+  .gal__i{aspect-ratio:3/2; border-radius:var(--r); border:1px solid var(--line-2)}
+  .gal__cap{font-size:13px; color:var(--cap-c); margin-top:10px}
+
+  /* C2 — video juosta: 78vw, matosi 1,2 kortelės */
+  .sec--video .head{margin-bottom:var(--s3)}
+  .vrail{
+    display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    padding:0 var(--pad) 4px;
+  }
+  .vrail::-webkit-scrollbar{display:none}
+  .vrail__i{flex:0 0 60vw; scroll-snap-align:center}
+
+  /* F4 — centrinė kortelė pilna, šoninės atsitraukia */
+  .js .vrail__i,.js .gal > li{
+    transform:scale(.95); opacity:.65; transform-origin:center;
+    transition:transform 300ms var(--e), opacity 300ms var(--e);
+  }
+  .js .vrail__i.is-mid,.js .gal > li.is-mid{transform:scale(1); opacity:1}
+
+  /* E5 — forma */
+  .form-grid{gap:var(--s3)}
+  .contacts{margin-top:var(--s3)}
+  .field{margin-bottom:14px}
+  .contacts li{padding:11px 0}
+  .contacts a{padding:11px 0; margin:-11px 0}
+  .field input,.field textarea{min-height:52px; border:1px solid #333; font-size:16px}
+  .field input:focus,.field textarea:focus{border:1px solid var(--gold)}
+  .field .file-btn{width:100%; border-color:#333}
+  .form-grid__l h2{font-size:var(--t-h2)}
+
+  /* E6 — footer ≤380px */
+  .foot{padding:36px 0 calc(24px + env(safe-area-inset-bottom))}
+  .foot__in{display:block}
+  .foot__brand img{width:124px; margin-bottom:10px}
+  .foot__brand p{font-size:13px; color:var(--cap-c)}
+  .foot__col{margin-top:18px}
+  .foot__col p:first-child{margin-bottom:6px}
+  .foot__col p{font-size:13px; line-height:1.5}
+  .foot__lines span{display:inline}
+  .foot__lines .sep{display:inline; font-weight:400; color:var(--muted); opacity:.55}
+  .foot__legal{margin-top:18px; padding-top:14px; font-size:10px}
+
+  /* E9 — hamburger: viso ekrano juodas overlay */
+  .nav__panel{
+    position:fixed; inset:0; z-index:120; display:none; flex-direction:column;
+    justify-content:center; padding:0 var(--pad) calc(28px + env(safe-area-inset-bottom));
+    background:#000; border:0; overflow-y:auto;
+  }
+  .nav.is-open .nav__panel{display:flex}
+  .nav.is-open{background:transparent}
+  .nav__panel-in{display:flex; flex-direction:column; margin:auto 0}
+  .nav__panel a{
+    font-size:28px; line-height:1.2; padding:12px 0; border:0; color:var(--text);
+    letter-spacing:-.03em; opacity:0; transform:translate3d(0,14px,0);
+  }
+  .nav.is-open .nav__panel a{animation:navIn 420ms cubic-bezier(.22,.61,.36,1) both}
+  .nav.is-open .nav__panel-in a:nth-child(1){animation-delay:60ms}
+  .nav.is-open .nav__panel-in a:nth-child(2){animation-delay:120ms}
+  .nav.is-open .nav__panel-in a:nth-child(3){animation-delay:180ms}
+  .nav.is-open .nav__panel-in a:nth-child(4){animation-delay:240ms}
+  .nav.is-open .nav__panel-in a:nth-child(5){animation-delay:300ms}
+  .nav.is-open .nav__panel-in a:nth-child(6){animation-delay:360ms}
+  .nav__panel-tel{
+    margin-top:auto; color:var(--gold) !important; font-size:20px !important;
+    font-family:var(--m); letter-spacing:.04em; animation-delay:420ms !important;
+  }
+  .nav__toggle{position:relative; z-index:130}
+  .nav.is-open .nav__toggle span{background:var(--text)}
+  @keyframes navIn{to{opacity:1; transform:translate3d(0,0,0)}}
+
+  /* E1 — sticky juosta tik kai hero išėjo iš viewport'o */
+  .callbar{
+    display:grid; grid-template-columns:1fr 1fr; gap:8px;
+    position:fixed; left:0; right:0; bottom:0; z-index:150; height:64px;
+    padding:8px 12px; padding-bottom:calc(8px + env(safe-area-inset-bottom));
+    background:rgba(18,16,16,.94); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+    border-top:1px solid var(--line-2);
+    transform:translate3d(0,110%,0); transition:transform 250ms cubic-bezier(.22,.61,.36,1);
+  }
+  .callbar.is-on{transform:translate3d(0,0,0)}
+  .callbar a{display:flex; align-items:center; justify-content:center; border-radius:var(--r);
+    font-size:14px; font-weight:500; border:1px solid var(--line-2); color:var(--text)}
+  .callbar a:active{transform:scale(.98)}
+  .callbar .callbar__b{background:var(--gold); color:var(--ink); border-color:var(--gold)}
+  .foot{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+
+  /* inline CTA mobile paslėpti — juostoje jau yra */
+  .cmp__cta,.hero__act{display:none}
+}
+
+/* ── F2 · reveal ─────────────────────────────────────────────── */
+.js .rv{opacity:0; transform:translate3d(0,16px,0)}
+.js .rv.is-in{
+  opacity:1; transform:translate3d(0,0,0);
+  transition:opacity 500ms cubic-bezier(.22,.61,.36,1) var(--rd,0ms),
+             transform 500ms cubic-bezier(.22,.61,.36,1) var(--rd,0ms);
+}
+.js .rv .cw__l img,.js .rv .svc__media img,.js .rv .svc__media video,
+.js .rv .mvid video,.js .gal.rv img,.js .vrail.rv .vrail__m video{
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path 700ms cubic-bezier(.22,.61,.36,1) var(--rd,0ms);
+}
+.js .rv.is-in .cw__l img,.js .rv.is-in .svc__media img,.js .rv.is-in .svc__media video,
+.js .rv.is-in .mvid video,.js .gal.rv.is-in img,.js .vrail.rv.is-in .vrail__m video{
+  clip-path:inset(0 0 0 0);
+}
+
+/* ── prefers-reduced-motion: viskas išjungiama ───────────────── */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:.01ms !important; scroll-behavior:auto !important;
+  }
+  .js .hero__plate img{animation:none; transform:none !important}
+  .js .hero h1 span,.js .hero__sub{opacity:1; transform:none; animation:none}
+  .js .rv{opacity:1; transform:none}
+  .js .rv .cw__l img,.js .rv .svc__media img,.js .rv .svc__media video,
+  .js .rv .mvid video,.js .gal.rv img,.js .vrail.rv .vrail__m video{clip-path:none}
+  .js .sec::before,.js .foot::before{transform:scaleX(1)}
+  .js .vrail__i,.js .gal > li{transform:none; opacity:1}
+  .callbar{transition:none}
+  .nav.is-open .nav__panel a{animation:none; opacity:1; transform:none}
+}
+
+/* QA capture */
+html.qa .callbar{display:none}
+html.qa .js .sec::before{transform:scaleX(1)}
+html.qa .vrail__i,html.qa .gal > li{transform:none !important; opacity:1 !important}
+html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !important; animation:none !important}
