@@ -20,15 +20,16 @@
 <link rel="apple-touch-icon" href="img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/hero.webp" fetchpriority="high"
-      imagesrcset="img/hero-xs.webp 800w, img/hero-sm.webp 1100w, img/hero.webp 2568w" imagesizes="100vw">
+<link rel="preload" as="image" href="img/hero-m.webp" fetchpriority="high" media="(max-width:760px)">
+<link rel="preload" as="image" href="img/hero.webp" fetchpriority="high" media="(min-width:761px)"
+      imagesrcset="img/hero-xs.webp 800w, img/hero-sm.webp 1100w, img/hero.webp 2568w" imagesizes="(max-width:1100px) 190vw, 100vw">
 <link rel="preload" as="style"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" media="print" onload="this.media='all'"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <noscript><link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
-<link rel="stylesheet" href="styles.css?v=20260906b">
+<link rel="stylesheet" href="styles.css?v=20260906e">
 <script>document.documentElement.className += ' js';</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"AutoBodyShop","name":"Minerda","alternateName":"Poliravimas Meninis Lyginimas keraminė nanodanga Minerda","url":"https://minerda.lt/","image":"https://minerda.lt/img/og.jpg","telephone":"+37063333969","address":{"@type":"PostalAddress","streetAddress":"V. Krėvės pr. 129A","addressLocality":"Kaunas","postalCode":"LT-51100","addressCountry":"LT"},"areaServed":"Kaunas","priceRange":"nuo 40 €/val.","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"}],"sameAs":["https://www.facebook.com/profile.php?id=100054326658601","https://www.instagram.com/_minerda_/"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Meninis lyginimas (PDR)"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Kėbulo poliravimas"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Keraminė nanodanga"}}]}
@@ -73,9 +74,13 @@
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero__plate">
-    <img src="img/hero.webp" srcset="img/hero-xs.webp 800w, img/hero-sm.webp 1100w, img/hero.webp 2568w" sizes="100vw"
-         width="2568" height="1720"
-         alt="Geltonas Lamborghini Urus iš priekio Minerda studijoje tarp šviesos juostų" fetchpriority="high">
+    <picture>
+      <!-- telefonai: pilnas kadras su lubomis ir grindimis, kad visas priekis tilptų per plotį -->
+      <source media="(max-width:760px)" srcset="img/hero-m.webp" width="1400" height="1180">
+      <img src="img/hero.webp" srcset="img/hero-xs.webp 800w, img/hero-sm.webp 1100w, img/hero.webp 2568w" sizes="(max-width:1100px) 190vw, 100vw"
+           width="2568" height="1720"
+           alt="Geltonas Lamborghini Urus iš priekio Minerda studijoje tarp šviesos juostų" fetchpriority="high">
+    </picture>
   </div>
   <div class="wrap hero__in">
     <h1><span class="hero__l1">Įlenkimų šalinimas</span><span class="hero__l2"><em class="hero__au">be dažymo</em> Kaune</span></h1>
@@ -412,6 +417,6 @@
 </div>
 
 <script src="lenis.min.js"></script>
-<script src="main.js?v=20260906b"></script>
+<script src="main.js?v=20260906c"></script>
 </body>
 </html>

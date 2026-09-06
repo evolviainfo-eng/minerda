@@ -526,9 +526,7 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
   .cw__stage{border-left:0; border-right:0; border-radius:0}
   .mvid video{border-left:0; border-right:0; border-radius:0}
 
-  /* B — hero: paantraštė ant nuotraukos, 24px iki adreso eilutės */
-  .hero__plate{height:56svh}
-  .hero__in{margin-top:-186px}
+  /* B — hero: tekstas ant nuotraukos apačioje (pilnas ekranas — žr. ≤1100 bloką) */
   .hero h1{margin-bottom:18px}
   .hero__sub{color:var(--text); opacity:.92}
   .hero__meta{margin-top:24px; padding-top:16px}
@@ -718,3 +716,53 @@ html.qa .callbar{display:none}
 html.qa .js .sec::before{transform:scaleX(1)}
 html.qa .vrail__i,html.qa .gal > li{transform:none !important; opacity:1 !important}
 html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !important; animation:none !important}
+
+
+/* ── hero per visą pirmą ekraną (telefonai ir planšetės portrete) ──
+   Ta pati kompozicija kaip anksčiau: horizontali plokštė su VISU Urus
+   priekiu, laiptuota antraštė kerta jos apatinį kraštą, po ja paantraštė;
+   hero ištemptas iki 100svh — adreso/valandų eilutė prispausta prie ekrano
+   apačios, kad pirmame ekrane būtų tik hero.                              */
+@media (max-width:1100px){
+  .hero{
+    position:relative; overflow:hidden;
+    min-height:100vh; min-height:100svh;
+    display:flex; flex-direction:column;
+  }
+  .hero__plate{position:relative; height:58vh; height:58svh; flex:0 0 auto}
+  html.qa .hero__plate{height:58svh}
+  .hero__plate img{height:100%; object-position:50% 48%}
+  .hero__in{
+    flex:1 1 auto; display:flex; flex-direction:column;
+    margin-top:-96px; padding-bottom:calc(20px + env(safe-area-inset-bottom));
+  }
+  .hero__meta{margin-top:auto; padding-top:16px}
+}
+@media (max-width:1100px) and (min-width:761px){
+  .hero__in{margin-top:-140px}
+}
+
+/* telefonai: pilnas kadras (1400×1180) per visą plotį — nieko nekerpa,
+   antraštė didesnė ir kerta plokštės apačią, meta eilutė ekrano apačioje */
+@media (max-width:760px){
+  .hero__plate{height:auto; aspect-ratio:1400/1180}
+  html.qa .hero__plate{height:auto}
+  .hero__plate img{object-position:50% 50%}
+  .hero__plate::after{
+    background:linear-gradient(180deg,
+      rgba(18,16,16,.46) 0%,
+      rgba(18,16,16,.10) 26%,
+      rgba(18,16,16,.16) 58%,
+      rgba(18,16,16,.72) 84%,
+      rgb(18,16,16) 100%);
+  }
+  /* su šia horizontalia nuotrauka automobilio priekis telefone užima ~39 %
+     ekrano — 100svh paliktų ~470px tuštumos, tad hero = turinys (min 72 %), meta apačioje */
+  .hero{min-height:72vh; min-height:72svh}
+  .hero__in{margin-top:-72px}
+  .hero h1{font-size:42px; letter-spacing:-.035em; margin-bottom:18px}
+  .hero__l2{padding-left:.45em}
+  .hero__sub{font-size:18px; max-width:30ch}
+  .hero__meta{margin-top:auto; padding-top:16px}
+  .hero__in{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+}

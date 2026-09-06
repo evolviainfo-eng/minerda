@@ -294,7 +294,8 @@
       e.preventDefault(); touched = true; paint(pos + d);
     });
 
-    /* one slow hint on first appearance: 50 → 38 → 50 over 2s, then it rests */
+    /* one slow hint on first appearance: 50 → 25 → 50 over 2s, then it rests
+       (only the first slider gets it — see hintIO below) */
     root._hint = function () {
       if (touched || still) return;
       var t0 = performance.now(), DUR = 2000;
@@ -304,7 +305,7 @@
         /* ease-in-out there and back */
         var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
         var tri = e < 0.5 ? e * 2 : (1 - e) * 2;
-        paint(50 - 12 * tri);
+        paint(50 - 25 * tri);
         if (k < 1) raf(step); else paint(50);
       };
       raf(step);
@@ -321,7 +322,8 @@
         setTimeout(function () { e.target._hint && e.target._hint(); }, 450);
       });
     }, { threshold: 0.5 });
-    sliders.forEach(function (s) { hintIO.observe(s); });
+    /* the demonstration runs once, on the first slider only */
+    if (sliders[0]) hintIO.observe(sliders[0]);
   }
 
   /* desktop index rail switches the #darbas pair */
