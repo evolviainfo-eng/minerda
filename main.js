@@ -682,6 +682,23 @@
     }
   }
 
+  /* ── atsiliepimai: 6 matomi, „Rodyti visus" atveria likusius ── */
+  var revList = document.getElementById('rev');
+  var revMore = document.getElementById('revMore');
+  if (revList && revMore) {
+    var revItems = [].slice.call(revList.querySelectorAll('.rev__i'));
+    var SHOW = 6;
+    if (revItems.length > SHOW) {
+      revItems.slice(SHOW).forEach(function (li) { li.hidden = true; });
+      revMore.hidden = false;
+      revMore.addEventListener('click', function () {
+        revItems.slice(SHOW).forEach(function (li) { li.hidden = false; li.classList.add('is-in'); });
+        revMore.setAttribute('aria-expanded', 'true');
+        revMore.hidden = true;
+      });
+    }
+  }
+
   /* ── year ────────────────────────────────────────────── */
   document.getElementById('yr').textContent = new Date().getFullYear();
 })();

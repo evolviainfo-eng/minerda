@@ -766,3 +766,32 @@ html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !i
   .hero__meta{margin-top:auto; padding-top:16px}
   .hero__in{padding-bottom:calc(18px + env(safe-area-inset-bottom))}
 }
+
+
+/* ── atsiliepimai: citatos stilius, be žvaigždučių, be karuselės ──── */
+.rev__stat{margin-top:-8px; font-size:var(--t-sm); color:var(--muted)}
+.rev__stat a{color:var(--text); border-bottom:1px solid var(--line); padding-bottom:2px;
+  transition:border-color var(--d-ui) var(--e)}
+.rev__stat a:hover{border-bottom-color:var(--text)}
+.rev{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap-block)}
+.rev__i{padding-left:var(--s3); border-left:1px solid var(--line); max-width:62ch}
+.rev__i[hidden]{display:none}
+.rev__meta{display:flex; flex-wrap:wrap; gap:6px 12px; margin-bottom:12px;
+  font-family:var(--m); font-size:var(--t-label); font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.rev__name{color:var(--text)}
+.rev__t{font-size:var(--t-lead); font-weight:300; letter-spacing:-.02em; line-height:1.35}
+.rev__more{
+  display:inline-flex; align-items:center; justify-content:center; margin-top:var(--gap-block);
+  min-height:48px; padding:12px 22px; border:1px solid var(--line); border-radius:var(--r);
+  background:transparent; color:var(--text); font-family:var(--f); font-size:var(--t-sm); font-weight:500;
+  letter-spacing:.02em; cursor:pointer; transition:border-color var(--d-ui) var(--e), transform 100ms var(--e);
+}
+.rev__more:hover{border-color:var(--text)}
+.rev__more:active{transform:scale(.98)}
+@media (max-width:1100px){ .rev{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:760px){
+  .rev{grid-template-columns:1fr; gap:var(--s3)}
+  .rev__t{font-size:18px}
+  .rev__more{width:100%}
+  .rev__stat{margin-top:-4px}
+}
