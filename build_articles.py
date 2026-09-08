@@ -25,6 +25,11 @@ TODAY = datetime.date.today().isoformat()
 STYLES_V = re.search(r'styles\.css\?v=(\w+)', open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()).group(1)
 MAIN_V = re.search(r'main\.js\?v=(\w+)', open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read()).group(1)
 
+# straipsnių tvarka sąraše ir pagrindiniame (nežinomi slug'ai — abėcėlės tvarka gale)
+ORDER = ['meninis-lyginimas', 'kebulo-poliravimas', 'nanodanga', 'zibintu-poliravimas']
+HOME_CARDS = 4          # kiek kortelių rodoma pagrindiniame
+DUK_SOURCE = 'meninis-lyginimas'   # /duk/ ir pagrindinio 8 klausimai imami TIK iš šio straipsnio
+
 # pagrindinio DUK: 8 klausimai (tikslūs pavadinimai iš straipsnio DUK dalies)
 HOME_FAQ = [
     'Kas yra meninis lyginimas?',
@@ -190,8 +195,9 @@ def page(root, title, desc, canonical, body, extra_head='', body_class='', og_ty
 # ── build ─────────────────────────────────────────────────────────
 def build():
     articles = []
-    for fn in sorted(os.listdir(os.path.join(ROOT, 'content'))):
-        if not fn.endswith('.md'): continue
+    names = sorted(f for f in os.listdir(os.path.join(ROOT, 'content')) if f.endswith('.md'))
+    names.sort(key=lambda f: (ORDER.index(f[:-3]) if f[:-3] in ORDER else len(ORDER), f))
+    for fn in names:
         slug = fn[:-3]
         md = open(os.path.join(ROOT, 'content', fn), encoding='utf-8').read()
         doc = parse_md(md)
@@ -249,11 +255,11 @@ def build():
         print('straipsnis:', a['slug'])
 
     # ── kortelės (sąrašui ir pagrindiniam) ──
-    def cards(root):
+    def cards(root, limit=None):
         return '\n'.join(
             f'      <li class="card rv">\n        <h3><a href="{root}straipsniai/{a["slug"]}/">{E(a["title"])}</a></h3>\n'
             f'        <p>{E(a["desc"])}</p>\n        <a class="card__more" href="{root}straipsniai/{a["slug"]}/">Skaityti</a>\n      </li>'
-            for a in articles)
+            for a in (articles if limit is None else articles[:limit]))
 
     # ── sąrašas ──
     root = '../'
@@ -282,8 +288,9 @@ def build():
 
     # ── pagrindinis: kortelė + DUK + FAQPage JSON-LD ──
     ip = os.path.join(ROOT, 'index.html'); idx = open(ip, encoding='utf-8').read()
-    idx = re.sub(r'(<!-- ARTICLES:start -->).*?(<!-- ARTICLES:end -->)', lambda m: m.group(1) + '\n' + cards('') + '\n      ' + m.group(2), idx, flags=re.S)
-    faq_all = {q: ans for a in articles for q, ans in a['faq']}
+    idx = re.sub(r'(<!-- ARTICLES:start -->).*?(<!-- ARTICLES:end -->)', lambda m: m.group(1) + '\n' + cards('', HOME_CARDS) + '\n      ' + m.group(2), idx, flags=re.S)
+    src = next(a for a in articles if a['slug'] == DUK_SOURCE)
+    faq_all = {q: ans for q, ans in src['faq']}
     missing = [q for q in HOME_FAQ if q not in faq_all]
     assert not missing, f'DUK klausimai nerasti straipsnyje: {missing}'
     home_faq = [(q, faq_all[q]) for q in HOME_FAQ]
