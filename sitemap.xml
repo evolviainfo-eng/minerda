@@ -13,6 +13,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://minerda.lt/duk/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://minerda.lt/straipsniai/meninis-lyginimas/</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>

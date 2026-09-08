@@ -7,7 +7,8 @@
   content/<slug>.md  →  straipsniai/<slug>/index.html      (straipsnis)
                      →  straipsniai/index.html             (sąrašas)
                      →  index.html  <!-- ARTICLES:start/end -->  (kortelė pagrindiniame)
-                     →  index.html  <!-- DUK:start/end -->       (8 klausimai iš straipsnio DUK)
+                     →  index.html  <!-- DUK:start/end -->       (8 klausimai + „Visi klausimai")
+                     →  duk/index.html                     (visi klausimai + FAQPage JSON-LD)
                      →  sitemap.xml
 
 Naujas straipsnis = naujas content/<slug>.md ir paleisti šį skriptą.
@@ -127,13 +128,13 @@ def chrome(root):
     foot = re.search(r'<footer class="foot".*?</footer>', idx, re.S).group(0)
     bar = re.search(r'<div class="callbar".*?</div>\n', idx, re.S).group(0)
     def rel(s):
-        s = s.replace('href="#', f'href="{root}#').replace('href="straipsniai/"', f'href="{root}straipsniai/"')
+        s = s.replace('href="#', f'href="{root}#').replace('href="straipsniai/"', f'href="{root}straipsniai/"').replace('href="duk/"', f'href="{root}duk/"')
         s = s.replace('src="img/', f'src="{root}img/').replace('srcset="img/', f'srcset="{root}img/')
         return s
     return rel(head), rel(foot), rel(bar)
 
 
-def page(root, title, desc, canonical, body, extra_head='', body_class=''):
+def page(root, title, desc, canonical, body, extra_head='', body_class='', og_type='article'):
     head, foot, bar = chrome(root)
     return f'''<!DOCTYPE html>
 <html lang="lt">
@@ -144,7 +145,7 @@ def page(root, title, desc, canonical, body, extra_head='', body_class=''):
 <meta name="description" content="{E(desc)}">
 <meta name="theme-color" content="#121010">
 <link rel="canonical" href="{canonical}">
-<meta property="og:type" content="article">
+<meta property="og:type" content="{og_type}">
 <meta property="og:locale" content="lt_LT">
 <meta property="og:site_name" content="Minerda">
 <meta property="og:title" content="{E(title)}">
@@ -274,7 +275,7 @@ def build():
 </section>
 '''
     out = page(root, 'Straipsniai | Minerda', 'Straipsniai apie meninį lyginimą, įlenkimų šalinimą be dažymo, poliravimą ir kėbulo priežiūrą. Minerda, Kaunas.',
-               f'{SITE}/straipsniai/', body, '<script type="application/ld+json">' + ld + '</script>')
+               f'{SITE}/straipsniai/', body, '<script type="application/ld+json">' + ld + '</script>', og_type='website')
     os.makedirs(os.path.join(ROOT, 'straipsniai'), exist_ok=True)
     open(os.path.join(ROOT, 'straipsniai', 'index.html'), 'w', encoding='utf-8').write(out)
     print('sąrašas: straipsniai/index.html')
@@ -286,15 +287,51 @@ def build():
     missing = [q for q in HOME_FAQ if q not in faq_all]
     assert not missing, f'DUK klausimai nerasti straipsnyje: {missing}'
     home_faq = [(q, faq_all[q]) for q in HOME_FAQ]
-    idx = re.sub(r'(<!-- DUK:start -->).*?(<!-- DUK:end -->)', lambda m: m.group(1) + '\n' + render_faq(home_faq, 'faq rv') + '\n    ' + m.group(2), idx, flags=re.S)
-    faq_ld = json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ' '.join(ans)}} for q, ans in home_faq]}, ensure_ascii=False)
-    idx = re.sub(r'<script type="application/ld\+json" id="faq-ld">.*?</script>', '<script type="application/ld+json" id="faq-ld">' + faq_ld + '</script>', idx, flags=re.S)
+    idx = re.sub(r'(<!-- DUK:start -->).*?(<!-- DUK:end -->)', lambda m: m.group(1) + '\n' + render_faq(home_faq, 'faq rv')
+                 + '\n    <p class="cards__all rv"><a href="duk/">Visi klausimai</a></p>\n    ' + m.group(2), idx, flags=re.S)
+    # FAQPage JSON-LD gyvena tik /duk/ — pagrindiniame jo neturi būti (dubliavimasis)
+    idx = re.sub(r'\n?<script type="application/ld\+json" id="faq-ld">.*?</script>', '', idx, flags=re.S)
     open(ip, 'w', encoding='utf-8').write(idx)
-    print('pagrindinis: kortelė + DUK (%d kl.) + FAQPage' % len(home_faq))
+    print('pagrindinis: kortelė + DUK (%d kl.) + „Visi klausimai"' % len(home_faq))
+
+    # ── /duk/: visi klausimai, FAQPage JSON-LD su visais ──
+    all_faq = list(faq_all.items())
+    root = '../'
+    duk_url = f'{SITE}/duk/'
+    duk_title = 'Dažniausiai užduodami klausimai'
+    duk_desc = 'Atsakymai apie meninį lyginimą ir PDR: durelių, sparno, kapoto ir krušos įlenkimų lyginimas be dažymo, žymės, terminai ir kaina. Minerda, Kaunas.'
+    ld = [
+        {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ' '.join(ans)}} for q, ans in all_faq]},
+        {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Pradžia", "item": SITE + '/'},
+            {"@type": "ListItem", "position": 2, "name": duk_title, "item": duk_url}]},
+    ]
+    extra = '\n'.join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False) + '</script>' for x in ld)
+    body = f'''
+<section class="sec sec--list sec--dukpage">
+  <div class="wrap">
+    <nav class="crumbs rv" aria-label="Kelias"><a href="{root}">Pradžia</a><span>·</span><span>DUK</span></nav>
+    <div class="head rv">
+      <h1>{E(duk_title)}</h1>
+    </div>
+    <div class="art">
+{render_faq(all_faq, 'faq rv')}
+      <div class="cta rv">
+        <p class="cta__t">Atsiųskite įlenkimo nuotrauką, įvertinsime ir atsakysime telefonu arba el. paštu.</p>
+        <a class="btn" href="{root}#uzklausa">Įvertinti pagal nuotrauką</a>
+      </div>
+    </div>
+  </div>
+</section>
+'''
+    out = page(root, duk_title + ' | Minerda', duk_desc, duk_url, body, extra, og_type='website')
+    os.makedirs(os.path.join(ROOT, 'duk'), exist_ok=True)
+    open(os.path.join(ROOT, 'duk', 'index.html'), 'w', encoding='utf-8').write(out)
+    print('duk: duk/index.html (%d kl.) + FAQPage' % len(all_faq))
 
     # ── sitemap ──
-    urls = [(SITE + '/', '1.0'), (f'{SITE}/straipsniai/', '0.6')] + [(a['url'], '0.8') for a in articles]
+    urls = [(SITE + '/', '1.0'), (f'{SITE}/straipsniai/', '0.6'), (f'{SITE}/duk/', '0.7')] + [(a['url'], '0.8') for a in articles]
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
         f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>{p}</priority>\n  </url>\n' for u, p in urls) + '</urlset>\n'
     open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write(sm)

@@ -813,6 +813,9 @@ html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !i
 .crumbs a{color:var(--muted); transition:color var(--d-ui) var(--e)}
 .crumbs a:hover{color:var(--text)}
 .sec--art,.sec--list{padding-top:calc(78px + var(--gap-sec))}
+.sec--dukpage .head{margin-bottom:var(--s3)}
+.sec--dukpage .faq{margin-top:0}
+#duk .cards__all{margin-top:var(--s3)}
 .sec--list .head h1{font-size:var(--t-h2); line-height:1.08; margin-bottom:var(--s3)}
 .art{max-width:70ch}
 .art h1{font-size:clamp(30px,4.6vw,48px); line-height:1.08; letter-spacing:-.03em; margin-bottom:var(--s3); text-wrap:balance}
