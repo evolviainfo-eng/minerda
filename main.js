@@ -526,6 +526,12 @@
   /* ── E1 · sticky bar appears once the hero has left ──── */
   var callbar = document.getElementById('callbar');
   var hero = document.getElementById('top');
+  if (callbar && !hero) {
+    /* subpuslapiai (straipsniai): juosta po pirmo ekrano */
+    var syncBarSub = function () { callbar.classList.toggle('is-on', window.scrollY > 320); };
+    syncBarSub();
+    window.addEventListener('scroll', syncBarSub, { passive: true });
+  }
   if (callbar && hero) {
     /* the bar belongs to the page below the hero — drive it from the hero's
        own bottom edge so it is right on the very first frame, before any
@@ -547,6 +553,7 @@
   ];
 
   var lb = document.getElementById('lb');
+  if (lb) {
   var lbImg = document.getElementById('lbImg');
   var lbCap = document.getElementById('lbCap');
   var idx = 0;
@@ -598,9 +605,11 @@
     if (e.key === 'ArrowLeft') step(-1);
     if (e.key === 'ArrowRight') step(1);
   });
+  }
 
   /* ── form ────────────────────────────────────────────── */
   var form = document.getElementById('form');
+  if (form) {
   var status = document.getElementById('status');
   var submit = document.getElementById('submit');
   var fileIn = document.getElementById('f-file');
@@ -673,6 +682,8 @@
       });
   });
 
+  }
+
   /* ?qa=1&y=N — park the page at a fixed offset for screenshot QA. */
   if (qa) {
     var yq = /[?&]y=(\d+)/.exec(location.search);
@@ -700,5 +711,6 @@
   }
 
   /* ── year ────────────────────────────────────────────── */
-  document.getElementById('yr').textContent = new Date().getFullYear();
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
 })();
