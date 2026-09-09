@@ -17,7 +17,7 @@
 
   /* Where the enquiry form posts. FormSubmit needs one activation click in the
      inbox below before the first message is delivered. */
-  var FORM_ENDPOINT = 'https://formsubmit.co/bfr082@gmail.com';
+  var FORM_ENDPOINT = 'https://formsubmit.co/info@minerda.lt';
 
   /* ── smooth scroll: Lenis, lerp only, desktop only ─────────────
      rAF loop is self-stopping: it runs while the user scrolls and dies a
