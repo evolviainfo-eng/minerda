@@ -507,13 +507,13 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width:760px){
   :root{
-    --pad:22px; --gap-sec:48px; --gap-block:24px;
+    --pad:22px; --gap-sec:56px; --gap-block:24px;
     --t-h2:30px; --t-body:16px; --t-sm:15px;
   }
   body{font-size:16px; line-height:1.5; color:var(--body-c)}
   .sec{padding:var(--gap-sec) 0}
   .sec--ba{padding-top:var(--gap-sec)}
-  .head{margin-bottom:var(--s3)}
+  .head{margin-bottom:28px}
   .head h2,.head h3,.ba-rail h2,.form-grid__l h2{
     font-size:var(--t-h2); line-height:1.1; color:var(--text); letter-spacing:-.03em; margin-bottom:14px}
   .lead{font-size:16px; line-height:1.5; color:var(--body-c)}
@@ -562,13 +562,13 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
 
   /* E2 — paslaugų kortelė vertikali */
   .svc{grid-template-columns:1fr; gap:0}
-  .svc__i{display:block; padding:14px 0}
+  .svc__i{display:block; padding:20px 0}
   .svc__i:first-child{padding-top:0}
   .svc__i + .svc__i{border-top:1px solid var(--line-2)}
   .svc__media{aspect-ratio:16/9; margin:0 calc(var(--pad)*-1) 14px; border-radius:0}
   .svc__i h3{font-size:20px; color:var(--text); margin-bottom:8px; letter-spacing:-.02em}
   .svc__i p{font-size:15px; color:var(--desc-c); line-height:1.5}
-  .more > div{grid-template-columns:1fr; gap:6px; padding:16px 0}
+  .more > div{grid-template-columns:1fr; gap:8px; padding:18px 0}
   .more dd{font-size:15px; color:var(--desc-c)}
   .more .price,.price{font-size:40px; margin-bottom:8px}
 
@@ -578,7 +578,7 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
   .facts dd{font-size:15px}
 
   /* E4 — #darbai: horizontalus scroll-snap, 72vw kortelės */
-  .sec--gal .head{margin-bottom:var(--s3)}
+  .sec--gal .head{margin-bottom:28px}
   .gal{
     display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
@@ -590,7 +590,7 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
   .gal__cap{font-size:13px; color:var(--cap-c); margin-top:10px}
 
   /* C2 — video juosta: 78vw, matosi 1,2 kortelės */
-  .sec--video .head{margin-bottom:var(--s3)}
+  .sec--video .head{margin-bottom:28px}
   .vrail{
     display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch; scrollbar-width:none;
@@ -609,9 +609,9 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
   /* E5 — forma */
   .form-grid{gap:var(--s3)}
   .contacts{margin-top:var(--s3)}
-  .field{margin-bottom:14px}
-  .contacts li{padding:11px 0}
-  .contacts a{padding:11px 0; margin:-11px 0}
+  .field{margin-bottom:18px}
+  .contacts li{padding:13px 0}
+  .contacts a{padding:13px 0; margin:-13px 0}
   .field input,.field textarea{min-height:52px; border:1px solid #333; font-size:16px}
   .field input:focus,.field textarea:focus{border:1px solid var(--gold)}
   .field .file-btn{width:100%; border-color:#333}
@@ -775,25 +775,28 @@ html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !i
 .rev__stat a:hover{border-bottom-color:var(--text)}
 .rev{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--gap-block)}
 .rev__i{padding-left:var(--s3); border-left:1px solid var(--line); max-width:62ch}
-.rev__i[hidden]{display:none}
 .rev__meta{display:flex; flex-wrap:wrap; gap:6px 12px; margin-bottom:12px;
   font-family:var(--m); font-size:var(--t-label); font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
 .rev__name{color:var(--text)}
 .rev__t{font-size:var(--t-lead); font-weight:300; letter-spacing:-.02em; line-height:1.35}
-.rev__more{
+/* „Rodyti daugiau" — vienas mygtukas visiems suskleistiems sąrašams */
+.showall{
   display:inline-flex; align-items:center; justify-content:center; margin-top:var(--gap-block);
   min-height:48px; padding:12px 22px; border:1px solid var(--line); border-radius:var(--r);
   background:transparent; color:var(--text); font-family:var(--f); font-size:var(--t-sm); font-weight:500;
   letter-spacing:.02em; cursor:pointer; transition:border-color var(--d-ui) var(--e), transform 100ms var(--e);
 }
-.rev__more[hidden]{display:none}
-.rev__more:hover{border-color:var(--text)}
-.rev__more:active{transform:scale(.98)}
+.showall[hidden]{display:none}
+.showall:hover{border-color:var(--text)}
+.showall:active{transform:scale(.98)}
+/* suskleisti elementai: [hidden] turi nugalėti grid/flex display taisykles */
+[data-collapse] > [hidden],[data-collapse-m] > [hidden]{display:none !important}
 @media (max-width:1100px){ .rev{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:760px){
-  .rev{grid-template-columns:1fr; gap:var(--s3)}
+  .rev{grid-template-columns:1fr; gap:30px}
+  .rev__i{padding-left:18px}
   .rev__t{font-size:18px}
-  .rev__more{width:100%}
+  .showall{width:100%}
   .rev__stat{margin-top:-4px}
 }
 
@@ -847,7 +850,10 @@ html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !i
 .faq details > div p:last-child{margin-bottom:0}
 @media (max-width:1100px){ .cards{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:760px){
-  .cards{grid-template-columns:1fr; gap:var(--s3)}
+  .cards{grid-template-columns:1fr; gap:30px}
+  .card{padding-top:22px}
+  .faq summary{padding:19px 0}
+  .faq details > div{padding-bottom:20px}
   .sec--art,.sec--list{padding-top:calc(78px + 24px)}
   .art h1{font-size:30px}
   .art h2{font-size:24px}

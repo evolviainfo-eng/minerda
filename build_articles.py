@@ -112,12 +112,12 @@ def render_blocks(blocks):
     return '\n'.join(out)
 
 
-def render_faq(faq, cls='faq'):
+def render_faq(faq, cls='faq', attrs=''):
     parts = []
     for q, answers in faq:
         body = ''.join(f'<p>{E(a)}</p>' for a in answers)
         parts.append(f'  <details>\n    <summary>{E(q)}</summary>\n    <div>{body}</div>\n  </details>')
-    return f'<div class="{cls}">\n' + '\n'.join(parts) + '\n</div>'
+    return f'<div class="{cls}"{attrs}>\n' + '\n'.join(parts) + '\n</div>'
 
 
 def first_sentence(p, limit=170):
@@ -294,8 +294,13 @@ def build():
     missing = [q for q in HOME_FAQ if q not in faq_all]
     assert not missing, f'DUK klausimai nerasti straipsnyje: {missing}'
     home_faq = [(q, faq_all[q]) for q in HOME_FAQ]
-    idx = re.sub(r'(<!-- DUK:start -->).*?(<!-- DUK:end -->)', lambda m: m.group(1) + '\n' + render_faq(home_faq, 'faq rv')
-                 + '\n    <p class="cards__all rv"><a href="duk/">Visi klausimai</a></p>\n    ' + m.group(2), idx, flags=re.S)
+    # telefone rodome 4 klausimus, likusius atveria mygtukas (data-collapse, žr. main.js)
+    home_faq_html = render_faq(home_faq, 'faq rv', ' id="dukList" data-collapse-m="4" data-collapse-btn="dukMore" data-collapse-with="dukAll"')
+    duk_more = ('<button type="button" class="showall" id="dukMore" hidden '
+                'aria-controls="dukList" aria-expanded="false">Daugiau klausimų</button>')
+    idx = re.sub(r'(<!-- DUK:start -->).*?(<!-- DUK:end -->)', lambda m: m.group(1) + '\n' + home_faq_html
+                 + '\n    ' + duk_more
+                 + '\n    <p class="cards__all rv" id="dukAll"><a href="duk/">Visi klausimai</a></p>\n    ' + m.group(2), idx, flags=re.S)
     # FAQPage JSON-LD gyvena tik /duk/ — pagrindiniame jo neturi būti (dubliavimasis)
     idx = re.sub(r'\n?<script type="application/ld\+json" id="faq-ld">.*?</script>', '', idx, flags=re.S)
     open(ip, 'w', encoding='utf-8').write(idx)

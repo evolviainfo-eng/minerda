@@ -693,22 +693,33 @@
     }
   }
 
-  /* ── atsiliepimai: 6 matomi, „Rodyti visus" atveria likusius ── */
-  var revList = document.getElementById('rev');
-  var revMore = document.getElementById('revMore');
-  if (revList && revMore) {
-    var revItems = [].slice.call(revList.querySelectorAll('.rev__i'));
-    var SHOW = 6;
-    if (revItems.length > SHOW) {
-      revItems.slice(SHOW).forEach(function (li) { li.hidden = true; });
-      revMore.hidden = false;
-      revMore.addEventListener('click', function () {
-        revItems.slice(SHOW).forEach(function (li) { li.hidden = false; li.classList.add('is-in'); });
-        revMore.setAttribute('aria-expanded', 'true');
-        revMore.hidden = true;
-      });
-    }
-  }
+  /* ── ilgi sąrašai suskleidžiami ────────────────────────────────
+     HTML'e viskas matoma (be JS lieka pilnas turinys) — JS tik paslepia
+     perteklių ir parodo mygtuką. `data-collapse` = kiek palikti kompiuteryje
+     (0 arba nėra — visus), `data-collapse-m` = kiek palikti telefone. */
+  [].slice.call(document.querySelectorAll('[data-collapse],[data-collapse-m]')).forEach(function (list) {
+    var wide = parseInt(list.getAttribute('data-collapse'), 10) || 0;
+    var narrow = list.hasAttribute('data-collapse-m')
+      ? parseInt(list.getAttribute('data-collapse-m'), 10) || 0 : wide;
+    var show = mobile ? narrow : wide;
+    var btn = document.getElementById(list.getAttribute('data-collapse-btn') || '');
+    var items = [].slice.call(list.children);
+    if (!btn || !show || items.length <= show) return;
+
+    /* nuoroda į pilną skyrių („Visi straipsniai") kol suskleista tik dubliuotų
+       mygtuką — grąžinama išskleidus */
+    var tail = document.getElementById(list.getAttribute('data-collapse-with') || '');
+    var rest = items.slice(show);
+    rest.forEach(function (el) { el.hidden = true; });
+    if (tail) tail.hidden = true;
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      rest.forEach(function (el) { el.hidden = false; el.classList.add('is-in'); });
+      if (tail) { tail.hidden = false; tail.classList.add('is-in'); }
+      btn.setAttribute('aria-expanded', 'true');
+      btn.hidden = true;
+    });
+  });
 
   /* ── year ────────────────────────────────────────────── */
   var yr = document.getElementById('yr');
