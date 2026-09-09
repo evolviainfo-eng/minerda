@@ -1,4 +1,4 @@
-# Žibintų poliravimas – pageltusių ir pamatinių žibintų atnaujinimas
+# Žibintų poliravimas – pageltusių ir matinių žibintų atnaujinimas
 
 Žibintų poliravimas – tai žibintų stiklų atnaujinimas, kurio metu pašalinamas pageltęs, matinis ar apsibraižęs išorinis sluoksnis ir žibintas vėl tampa skaidrus. Pageltę žibintai ne tik gadina automobilio išvaizdą, bet ir prasčiau praleidžia šviesą, todėl žibintų poliravimas yra ir estetikos, ir saugumo klausimas.
 
