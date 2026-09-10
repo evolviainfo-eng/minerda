@@ -133,7 +133,7 @@ def chrome(root):
     foot = re.search(r'<footer class="foot".*?</footer>', idx, re.S).group(0)
     bar = re.search(r'<div class="callbar".*?</div>\n', idx, re.S).group(0)
     def rel(s):
-        s = s.replace('href="#', f'href="{root}#').replace('href="straipsniai/"', f'href="{root}straipsniai/"').replace('href="duk/"', f'href="{root}duk/"')
+        s = s.replace('href="#', f'href="{root}#').replace('href="straipsniai/"', f'href="{root}straipsniai/"').replace('href="duk/"', f'href="{root}duk/"').replace('href="kontaktai/"', f'href="{root}kontaktai/"')
         s = s.replace('src="img/', f'src="{root}img/').replace('srcset="img/', f'srcset="{root}img/')
         return s
     return rel(head), rel(foot), rel(bar)
@@ -343,8 +343,41 @@ def build():
     open(os.path.join(ROOT, 'duk', 'index.html'), 'w', encoding='utf-8').write(out)
     print('duk: duk/index.html (%d kl.) + FAQPage' % len(all_faq))
 
+    # ── kontaktai ──
+    root = '../'
+    k_url = f'{SITE}/kontaktai/'
+    body = f'''
+<section class="sec sec--list">
+  <div class="wrap">
+    <nav class="crumbs rv" aria-label="Kelias"><a href="{root}">Pradžia</a><span>·</span><span>Kontaktai</span></nav>
+    <div class="head rv">
+      <h1>Kontaktai</h1>
+    </div>
+    <div class="art">
+    <ul class="contacts contacts--page rv">
+      <li><span class="mono">Įmonė</span><span>MINERDA</span></li>
+      <li><span class="mono">Veiklos forma</span><span>M. Bakanovo individuali veikla</span></li>
+      <li><span class="mono">Individualios veiklos pažyma</span><span>Nr. 980213</span></li>
+      <li><span class="mono">Adresas</span><a href="https://www.google.com/maps/search/?api=1&amp;query=V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas" target="_blank" rel="noopener">V. Krėvės pr. 129A, LT-51100 Kaunas</a></li>
+      <li><span class="mono">Telefonas</span><a href="tel:+37063333969">+370 633 33969</a></li>
+      <li><span class="mono">El. paštas</span><a href="mailto:info@minerda.lt">info@minerda.lt</a></li>
+      <li><span class="mono">Darbo laikas</span><span>I–V 09:00–17:00 · VI–VII nedirba</span></li>
+      <li><span class="mono">Socialiniai tinklai</span><span><a href="https://www.facebook.com/profile.php?id=100054326658601" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/_minerda_/" target="_blank" rel="noopener">Instagram</a></span></li>
+    </ul>
+    </div>
+  </div>
+</section>
+'''
+    out = page(root, 'Kontaktai | Minerda',
+               'Minerda kontaktai: V. Krėvės pr. 129A, Kaunas. Telefonas +370 633 33969, el. paštas info@minerda.lt. Darbo laikas I–V 09:00–17:00.',
+               k_url, body, og_type='website')
+    os.makedirs(os.path.join(ROOT, 'kontaktai'), exist_ok=True)
+    open(os.path.join(ROOT, 'kontaktai', 'index.html'), 'w', encoding='utf-8').write(out)
+    print('kontaktai: kontaktai/index.html')
+
     # ── sitemap ──
-    urls = [(SITE + '/', '1.0'), (f'{SITE}/straipsniai/', '0.6'), (f'{SITE}/duk/', '0.7')] + [(a['url'], '0.8') for a in articles]
+    urls = ([(SITE + '/', '1.0'), (f'{SITE}/straipsniai/', '0.6'), (f'{SITE}/duk/', '0.7'), (k_url, '0.5')]
+            + [(a['url'], '0.8') for a in articles])
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
         f'  <url>\n    <loc>{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>{p}</priority>\n  </url>\n' for u, p in urls) + '</urlset>\n'
     open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write(sm)

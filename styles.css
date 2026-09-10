@@ -606,6 +606,11 @@ html.qa .rv img,html.qa .rv video{transform:none !important; clip-path:none !imp
   }
   .js .vrail__i.is-mid,.js .gal > li.is-mid{transform:scale(1); opacity:1}
 
+  /* kontaktų puslapis: rekvizitų etiketės ilgesnės nei formos bloke,
+     todėl telefone etiketė eina virš reikšmės, o ne šalia jos */
+  .contacts--page li{display:block}
+  .contacts--page li .mono{display:block; margin-bottom:5px}
+
   /* E5 — forma */
   .form-grid{gap:var(--s3)}
   .contacts{margin-top:var(--s3)}
