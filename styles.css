@@ -892,6 +892,7 @@ html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !i
 .contacts .btn:hover{border-color:var(--text)}
 @media (max-width:760px){
   .map iframe{height:260px}
+  .partner-badge{margin-top:calc(38px - var(--gap-block))}
   .partner-badge img{width:189px; height:24px}
 }
 
