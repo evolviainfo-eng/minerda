@@ -27,7 +27,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <noscript><link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
-<link rel="stylesheet" href="../styles.css?v=20260910a">
+<link rel="stylesheet" href="../styles.css?v=20260924">
 <script>document.documentElement.className += ' js';</script>
 
 </head>
@@ -40,16 +40,32 @@
       <picture><source srcset="../img/minerda-logo-400.webp" type="image/webp"><img src="../img/minerda-logo-400.png" width="400" height="93" alt="Minerda"></picture>
     </a>
     <nav class="nav__links" aria-label="Pagrindinis meniu">
-      <a href="../#darbas">Prieš ir po</a>
       <a href="../#paslaugos">Paslaugos</a>
-      <a href="../#studija">Studija</a>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false" aria-controls="dd-rez">Rezultatai<svg class="dd__ch" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        <div class="dd__menu" id="dd-rez">
+          <a href="../#darbas">Prieš ir po</a>
+          <a href="../#darbai">Darbai</a>
+          <a href="../#video">Video</a>
+        </div>
+      </div>
       <a href="../#atsiliepimai">Atsiliepimai</a>
-      <a href="../straipsniai/">Straipsniai</a>
-      <a href="../#darbai">Darbai</a>
-      <a href="../#video">Video</a>
-      <a href="../duk/">DUK</a>
-      <a href="../#uzklausa">Užklausa</a>
-      <a href="../kontaktai/">Kontaktai</a>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false" aria-controls="dd-pat">Patarimai<svg class="dd__ch" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        <div class="dd__menu" id="dd-pat">
+          <a href="../straipsniai/">Straipsniai</a>
+          <a href="../duk/">DUK</a>
+        </div>
+      </div>
+      <div class="dd">
+        <button class="dd__btn" type="button" aria-expanded="false" aria-controls="dd-kon">Kontaktai<svg class="dd__ch" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        <div class="dd__menu" id="dd-kon">
+          <a href="../kontaktai/">Kontaktai</a>
+          <a href="../#uzklausa">Užklausa</a>
+          <a href="../#studija">Studija</a>
+        </div>
+      </div>
+      <a class="btn nav__reg" href="https://nevaziuoja.lt/autoservisas/minerda-1518?book-now=true" target="_blank" rel="noopener">Registracija</a>
     </nav>
     <a class="tlink nav__tel" href="tel:+37063333969">+370 633 33969</a>
     <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Atidaryti meniu">
@@ -58,16 +74,20 @@
   </div>
   <div class="nav__panel" id="navPanel" hidden>
     <div class="nav__panel-in">
-      <a href="../#darbas">Prieš ir po</a>
       <a href="../#paslaugos">Paslaugos</a>
-      <a href="../#studija">Studija</a>
       <a href="../#atsiliepimai">Atsiliepimai</a>
-      <a href="../straipsniai/">Straipsniai</a>
-      <a href="../#darbai">Darbai</a>
-      <a href="../#video">Video</a>
-      <a href="../duk/">DUK</a>
-      <a href="../#uzklausa">Užklausa</a>
-      <a href="../kontaktai/">Kontaktai</a>
+      <p class="nav__grp">Rezultatai</p>
+      <a class="nav__sub" href="../#darbas">Prieš ir po</a>
+      <a class="nav__sub" href="../#darbai">Darbai</a>
+      <a class="nav__sub" href="../#video">Video</a>
+      <p class="nav__grp">Patarimai</p>
+      <a class="nav__sub" href="../straipsniai/">Straipsniai</a>
+      <a class="nav__sub" href="../duk/">DUK</a>
+      <p class="nav__grp">Kontaktai</p>
+      <a class="nav__sub" href="../kontaktai/">Kontaktai</a>
+      <a class="nav__sub" href="../#uzklausa">Užklausa</a>
+      <a class="nav__sub" href="../#studija">Studija</a>
+      <a class="btn nav__reg" href="https://nevaziuoja.lt/autoservisas/minerda-1518?book-now=true" target="_blank" rel="noopener">Registracija</a>
     </div>
     <a class="nav__panel-tel" href="tel:+37063333969">+370 633 33969</a>
   </div>
@@ -87,8 +107,13 @@
       <li><span class="mono">Veiklos forma</span><span>M. Bakanovo individuali veikla</span></li>
       <li><span class="mono">Individualios veiklos pažyma</span><span>Nr. 980213</span></li>
       <li><span class="mono">Adresas</span><a href="https://www.google.com/maps/search/?api=1&amp;query=V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas" target="_blank" rel="noopener">V. Krėvės pr. 129A, LT-51100 Kaunas</a></li>
+      <li class="contacts__map">
+        <div class="map"><iframe src="https://www.google.com/maps?q=Minerda,+V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas&amp;output=embed" width="100%" height="320" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Minerda žemėlapyje" allowfullscreen></iframe></div>
+        <a class="tlink map__link" href="https://www.google.com/maps?q=Minerda,+V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas" target="_blank" rel="noopener">Atidaryti Google žemėlapiuose</a>
+      </li>
       <li><span class="mono">Telefonas</span><a href="tel:+37063333969">+370 633 33969</a></li>
       <li><span class="mono">El. paštas</span><a href="mailto:info@minerda.lt">info@minerda.lt</a></li>
+      <li class="contacts__reg"><a class="btn btn--ghost" href="https://nevaziuoja.lt/autoservisas/minerda-1518?book-now=true" target="_blank" rel="noopener">Registracija 24/7</a></li>
       <li><span class="mono">Darbo laikas</span><span>I–V 09:00–17:00 · VI–VII nedirba</span></li>
       <li><span class="mono">Socialiniai tinklai</span><span><a href="https://www.facebook.com/profile.php?id=100054326658601" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/_minerda_/" target="_blank" rel="noopener">Instagram</a></span></li>
     </ul>
@@ -113,6 +138,7 @@
       <p class="foot__lines"><span><a href="tel:+37063333969">+370 633 33969</a></span><b class="sep"> · </b><span><a href="mailto:info@minerda.lt">info@minerda.lt</a></span><b class="sep"> · </b><span><a href="https://www.facebook.com/profile.php?id=100054326658601" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/_minerda_/" target="_blank" rel="noopener">Instagram</a></span></p>
     </div>
     <p class="foot__legal">© <span id="yr">2026</span> MINERDA, M. Bakanovo IDV · <a href="../kontaktai/">Kontaktai</a></p>
+    <a href="https://nevaziuoja.lt" target="_blank" rel="noopener" class="partner-badge"><img src="../img/nevaziuoja-partneris.png" width="221" height="28" alt="nevažiuoja.lt partneris" loading="lazy"></a>
   </div>
 </footer>
 
@@ -122,6 +148,6 @@
 </div>
 
 <script src="../lenis.min.js"></script>
-<script src="../main.js?v=20260910a"></script>
+<script src="../main.js?v=20260924"></script>
 </body>
 </html>

@@ -102,6 +102,33 @@
     if (e.key === 'Escape' && !panel.hidden) setMenu(false);
   });
 
+  /* nav išskleidžiami sąrašai: paspaudimas (klaviatūra, planšetės), pelė per CSS :hover */
+  var dds = [].slice.call(document.querySelectorAll('.dd'));
+  var setDd = function (dd, open) {
+    dd.classList.toggle('is-open', open);
+    dd.querySelector('.dd__btn').setAttribute('aria-expanded', String(open));
+  };
+  dds.forEach(function (dd) {
+    dd.querySelector('.dd__btn').addEventListener('click', function () {
+      var open = !dd.classList.contains('is-open');
+      dds.forEach(function (o) { setDd(o, false); });
+      setDd(dd, open);
+    });
+    dd.querySelector('.dd__menu').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') { setDd(dd, false); e.target.blur(); }
+    });
+    dd.addEventListener('mouseleave', function () { setDd(dd, false); });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.dd')) dds.forEach(function (o) { setDd(o, false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    dds.forEach(function (o) {
+      if (o.classList.contains('is-open')) { setDd(o, false); o.querySelector('.dd__btn').focus(); }
+    });
+  });
+
   /* ── F2 reveal ───────────────────────────────────────── */
   var revealables = [].slice.call(document.querySelectorAll('.rv'));
   /* 70ms stagger, restarted per section, capped at six steps */

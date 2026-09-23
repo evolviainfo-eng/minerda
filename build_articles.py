@@ -359,8 +359,13 @@ def build():
       <li><span class="mono">Veiklos forma</span><span>M. Bakanovo individuali veikla</span></li>
       <li><span class="mono">Individualios veiklos pažyma</span><span>Nr. 980213</span></li>
       <li><span class="mono">Adresas</span><a href="https://www.google.com/maps/search/?api=1&amp;query=V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas" target="_blank" rel="noopener">V. Krėvės pr. 129A, LT-51100 Kaunas</a></li>
+      <li class="contacts__map">
+        <div class="map"><iframe src="https://www.google.com/maps?q=Minerda,+V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas&amp;output=embed" width="100%" height="320" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Minerda žemėlapyje" allowfullscreen></iframe></div>
+        <a class="tlink map__link" href="https://www.google.com/maps?q=Minerda,+V.+Kr%C4%97v%C4%97s+pr.+129A,+Kaunas" target="_blank" rel="noopener">Atidaryti Google žemėlapiuose</a>
+      </li>
       <li><span class="mono">Telefonas</span><a href="tel:+37063333969">+370 633 33969</a></li>
       <li><span class="mono">El. paštas</span><a href="mailto:info@minerda.lt">info@minerda.lt</a></li>
+      <li class="contacts__reg"><a class="btn btn--ghost" href="https://nevaziuoja.lt/autoservisas/minerda-1518?book-now=true" target="_blank" rel="noopener">Registracija 24/7</a></li>
       <li><span class="mono">Darbo laikas</span><span>I–V 09:00–17:00 · VI–VII nedirba</span></li>
       <li><span class="mono">Socialiniai tinklai</span><span><a href="https://www.facebook.com/profile.php?id=100054326658601" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/_minerda_/" target="_blank" rel="noopener">Instagram</a></span></li>
     </ul>

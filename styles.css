@@ -867,3 +867,72 @@ html.qa .hero h1 span,html.qa .hero__sub{opacity:1 !important; transform:none !i
   .art__s{margin-top:36px}
   .cta .btn{width:100%}
 }
+
+/* ── registracija (nevaziuoja.lt), partnerio ženkliukas, žemėlapis ── */
+.btn--ghost{background:transparent; color:var(--text); border-color:var(--gold)}
+.btn--ghost:hover{background:transparent; color:var(--text); border-color:var(--text)}
+.nav__links a.nav__reg{align-self:center; min-height:40px; padding:8px 16px; color:var(--ink); white-space:nowrap}
+.nav__links a.nav__reg::after{content:none}
+.nav__links a.nav__reg:hover{color:var(--ink)}
+.nav__panel a.nav__reg{align-self:flex-start; min-height:48px; margin-top:var(--s3); padding:12px 26px;
+  font-size:16px; letter-spacing:.02em; color:var(--ink); border:1px solid var(--gold)}
+.partner-badge{grid-column:1/-1; justify-self:start; display:inline-block; margin-top:calc(18px - var(--gap-block)); line-height:0}
+.partner-badge img{width:221px; height:28px}
+/* kompiuteryje ženkliukas dešinėje, copyright eilutėje (abu 2-oje footerio eilutėje) */
+@media (min-width:901px){
+  .foot__legal,.partner-badge{grid-row:2}
+  .partner-badge{justify-self:end; align-self:end; margin:0 0 -5px}
+}
+.contacts li.contacts__map{display:block}
+.map{overflow:hidden; line-height:0; border:1px solid var(--line-2); border-radius:var(--r); background:var(--ink-2)}
+.map iframe{display:block; width:100%; height:320px}
+.contacts a.map__link{display:inline-block; margin:12px 0 0; padding:0 0 3px}
+.contacts li.contacts__reg{display:block}
+.contacts .btn{border-bottom:1px solid var(--gold); padding:14px 30px; margin:6px 0}
+.contacts .btn:hover{border-color:var(--text)}
+@media (max-width:760px){
+  .map iframe{height:260px}
+  .partner-badge img{width:189px; height:24px}
+}
+
+/* ── nav išskleidžiami sąrašai: Rezultatai / Patarimai / Kontaktai ── */
+.nav__links{align-items:center}
+.dd{position:relative}
+.dd__btn{display:inline-flex; align-items:center; gap:7px; padding:6px 0; background:none; border:0; cursor:pointer;
+  font:inherit; color:var(--text); letter-spacing:inherit}
+.dd__ch{transition:transform var(--d-mid) var(--e); opacity:.7}
+.dd.is-open .dd__ch{transform:rotate(180deg)}
+.dd__menu{position:absolute; top:calc(100% + 16px); left:-22px; min-width:190px; z-index:120;
+  display:flex; flex-direction:column; padding:10px 22px;
+  background:var(--ink); border:1px solid var(--line); border-radius:var(--r);
+  opacity:0; visibility:hidden; transform:translate3d(0,-6px,0);
+  transition:opacity 200ms var(--e) 150ms, transform 200ms var(--e) 150ms, visibility 0s linear 350ms}
+/* nematomas tiltelis, kad pelė nepamestų sąrašo pakeliui žemyn */
+.dd__menu::before{content:""; position:absolute; left:0; right:0; top:-17px; height:17px}
+.nav__links .dd__menu a{padding:11px 0; white-space:nowrap; align-self:flex-start}
+.nav__links .dd__menu a + a{margin-top:2px}
+.dd.is-open .dd__menu{opacity:1; visibility:visible; transform:none; transition-delay:0s}
+@media (hover:hover){
+  .dd:hover .dd__menu{opacity:1; visibility:visible; transform:none; transition-delay:0s}
+  .dd:hover .dd__ch{transform:rotate(180deg)}
+}
+/* mobilus meniu: grupės su antraštėmis */
+.nav__grp{margin:var(--s3) 0 2px; font-family:var(--m); font-size:var(--t-label); font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+@media (max-width:760px){
+  .nav__panel a.nav__sub{font-size:22px; padding:8px 0}
+  .nav__grp{opacity:0; transform:translate3d(0,14px,0)}
+  .nav.is-open .nav__grp{animation:navIn 420ms cubic-bezier(.22,.61,.36,1) both}
+}
+/* 901–1099px juosta netelpa, todėl meniu per mygtuką kaip planšetėje */
+@media (min-width:901px) and (max-width:1099px){
+  .nav__links,.nav__tel{display:none}
+  .nav__toggle{display:flex}
+  .nav.is-open .nav__panel{display:flex}
+  .nav.is-open{background:var(--ink)}
+}
+/* planšetės meniu (761–1099px): punktai stulpeliu, kaip telefone */
+.nav__panel-in{display:flex; flex-direction:column}
+@media (min-width:761px) and (max-width:1099px){
+  .nav__panel{max-height:calc(100vh - 78px); max-height:calc(100dvh - 78px); overflow-y:auto; overscroll-behavior:contain}
+}
