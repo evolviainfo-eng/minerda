@@ -641,7 +641,16 @@
   var submit = document.getElementById('submit');
   var fileIn = document.getElementById('f-file');
   var fileNote = document.getElementById('fileNote');
-  var MAX = 8 * 1024 * 1024;
+  var fileBtn = document.getElementById('fileBtn');
+  /* FormSubmit priima kelis failus, bet visų priedų suma ≤ 10 MB
+     (formsubmit.co/documentation, „File uploads"). 9 MB palieka vietos
+     tekstiniams laukams ir multipart antraštėms. Skaičiaus ribos jie nenurodo;
+     10 sumažintų (≈1600 px JPEG, ~0,3–0,8 MB) nuotraukų patogiai telpa. */
+  var MAX_FILES = 10;
+  var MAX_TOTAL = 9 * 1024 * 1024;
+  var EDGE = 1600, QUALITY = 0.82;
+  var picked = [];
+  var busy = Promise.resolve();
 
   var setErr = function (id, msg) {
     var field = document.getElementById(id).closest('.field');
@@ -650,21 +659,131 @@
     return !msg;
   };
 
-  fileIn.addEventListener('change', function () {
-    var f = fileIn.files[0];
-    if (!f) { fileNote.hidden = true; setErr('f-file', ''); return; }
-    if (f.size > MAX) {
+  var plural = function (n) {
+    if (n % 10 === 1 && n % 100 !== 11) return 'nuotrauka';
+    if (n % 10 >= 2 && (n % 100 < 10 || n % 100 >= 20)) return 'nuotraukos';
+    return 'nuotraukų';
+  };
+  var fmtSize = function (b) {
+    if (b < 1048576) return Math.max(1, Math.round(b / 1024)) + ' KB';
+    return (b / 1048576).toFixed(1).replace('.', ',') + ' MB';
+  };
+  var totalSize = function () {
+    return picked.reduce(function (s, f) { return s + f.size; }, 0);
+  };
+
+  /* Sumažina nuotrauką naršyklėje: ilgoji kraštinė ≤ EDGE, JPEG. Jei naršyklė
+     formato neatpažįsta (pvz. HEIC ne Safari) arba rezultatas didesnis,
+     grąžina originalą – tada jam galioja bendra dydžio riba. */
+  var shrink = function (file) {
+    return new Promise(function (resolve) {
+      if (!window.URL || !URL.createObjectURL) return resolve(file);
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.onload = function () {
+        try {
+          var w = img.naturalWidth, h = img.naturalHeight;
+          if (!w || !h) throw new Error('no size');
+          var k = Math.min(1, EDGE / Math.max(w, h));
+          var c = document.createElement('canvas');
+          c.width = Math.round(w * k); c.height = Math.round(h * k);
+          var ctx = c.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, c.width, c.height);
+          ctx.drawImage(img, 0, 0, c.width, c.height);
+          URL.revokeObjectURL(url);
+          c.toBlob(function (b) {
+            if (!b || b.size >= file.size) return resolve(file);
+            var name = (file.name || 'nuotrauka').replace(/\.[^.]+$/, '') + '.jpg';
+            try { resolve(new File([b], name, { type: 'image/jpeg' })); }
+            catch (err) { b.name = name; resolve(b); }
+          }, 'image/jpeg', QUALITY);
+        } catch (err) { URL.revokeObjectURL(url); resolve(file); }
+      };
+      img.src = url;
+    });
+  };
+
+  var render = function () {
+    fileNote.textContent = '';
+    if (!picked.length) {
       fileNote.hidden = true;
-      setErr('f-file', 'Nuotrauka per didelė (' + Math.round(f.size / 1048576) + ' MB). Riba yra 8 MB.');
+      fileBtn.textContent = 'Pridėti nuotraukas';
       return;
     }
-    setErr('f-file', '');
+    var head = document.createElement('p');
+    head.textContent = picked.length + ' ' + plural(picked.length) + ' · ' + fmtSize(totalSize());
+    var ul = document.createElement('ul');
+    ul.className = 'file-list';
+    picked.forEach(function (f, i) {
+      var li = document.createElement('li');
+      var fn = document.createElement('span');
+      fn.className = 'fn';
+      fn.textContent = (f.name || 'nuotrauka') + ' · ' + fmtSize(f.size);
+      var rm = document.createElement('button');
+      rm.type = 'button';
+      rm.textContent = 'Pašalinti';
+      rm.setAttribute('aria-label', 'Pašalinti ' + (f.name || 'nuotrauką'));
+      rm.addEventListener('click', function () {
+        picked.splice(i, 1);
+        setErr('f-file', '');
+        render();
+      });
+      li.appendChild(fn); li.appendChild(rm); ul.appendChild(li);
+    });
+    fileNote.appendChild(head);
+    fileNote.appendChild(ul);
     fileNote.hidden = false;
-    fileNote.textContent = f.name + ' · ' + Math.max(1, Math.round(f.size / 1024)) + ' KB';
+    fileBtn.textContent = picked.length < MAX_FILES ? 'Pridėti daugiau nuotraukų' : 'Pasiektas nuotraukų limitas';
+  };
+
+  /* Kiekvienas pasirinkimas papildo sąrašą (telefono kamera duoda po vieną). */
+  fileIn.addEventListener('change', function () {
+    var files = Array.prototype.slice.call(fileIn.files || []);
+    fileIn.value = '';
+    if (!files.length) return;
+    setErr('f-file', '');
+    var room = MAX_FILES - picked.length;
+    var tooMany = files.length > room;
+    files = files.slice(0, Math.max(0, room));
+    var tooBig = 0;
+    fileNote.hidden = false;
+    fileNote.textContent = 'Ruošiamos nuotraukos…';
+    busy = busy.then(function () {
+      return files.reduce(function (chain, f) {
+        return chain.then(function () {
+          return shrink(f).then(function (out) {
+            if (totalSize() + out.size > MAX_TOTAL) tooBig++;
+            else picked.push(out);
+          });
+        });
+      }, Promise.resolve());
+    }).then(function () {
+      render();
+      var msg = [];
+      if (tooMany) msg.push('Galima pridėti iki ' + MAX_FILES + ' nuotraukų, papildomos nepridėtos.');
+      if (tooBig) msg.push((tooBig === 1 ? 'Viena nuotrauka nepridėta' : tooBig + ' nuotraukos nepridėtos') +
+        ': visos nuotraukos kartu gali būti iki 9 MB.');
+      setErr('f-file', msg.join(' '));
+    });
+  });
+
+  form.addEventListener('reset', function () {
+    picked = [];
+    setErr('f-file', '');
+    setTimeout(render, 0);
   });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (submit.disabled) return;
+    /* palaukti, kol baigs mažinti ką tik pridėtas nuotraukas */
+    submit.disabled = true;
+    busy.then(function () { submit.disabled = false; send(); });
+  });
+
+  var send = function () {
     var name = document.getElementById('f-name');
     var tel = document.getElementById('f-tel');
     var ok = true;
@@ -672,8 +791,8 @@
     ok = setErr('f-name', name.value.trim().length < 2 ? 'Įrašykite vardą.' : '') && ok;
     var digits = tel.value.replace(/\D/g, '');
     ok = setErr('f-tel', digits.length < 8 ? 'Įrašykite telefono numerį, kad galėtume atsakyti.' : '') && ok;
-    var f = fileIn.files[0];
-    if (f && f.size > MAX) ok = setErr('f-file', 'Nuotrauka per didelė. Riba yra 8 MB.') && ok;
+    if (picked.length > MAX_FILES) ok = setErr('f-file', 'Galima pridėti iki ' + MAX_FILES + ' nuotraukų.') && ok;
+    else if (totalSize() > MAX_TOTAL) ok = setErr('f-file', 'Nuotraukos per didelės: kartu gali būti iki 9 MB.') && ok;
 
     if (!ok) {
       status.className = 'form__status is-bad';
@@ -683,6 +802,12 @@
     }
 
     var data = new FormData(form);
+    data.delete('attachment');
+    /* FormSubmit iš kelių dalių tuo pačiu vardu pristato tik vieną (patikrinta),
+       todėl kiekviena nuotrauka eina atskiru lauku: attachment, attachment2, … */
+    picked.forEach(function (f, i) {
+      data.append(i ? 'attachment' + (i + 1) : 'attachment', f, f.name || ('nuotrauka' + (i + 1) + '.jpg'));
+    });
     data.append('_subject', 'Minerda — užklausa iš svetainės');
     data.append('_captcha', 'false');
     data.append('_template', 'table');
@@ -696,7 +821,6 @@
       .then(function (r) {
         if (!r.ok) throw new Error('http ' + r.status);
         form.reset();
-        fileNote.hidden = true;
         status.className = 'form__status is-ok';
         status.textContent = 'Užklausa išsiųsta. Susisieksime telefonu artimiausiu metu.';
         submit.textContent = 'Išsiųsta';
@@ -707,7 +831,7 @@
         submit.disabled = false;
         submit.textContent = 'Įvertinti pagal nuotrauką';
       });
-  });
+  };
 
   }
 

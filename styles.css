@@ -246,6 +246,12 @@ p{margin:0; text-wrap:pretty}
 .field.is-bad input,.field.is-bad textarea{border-color:var(--gold)}
 .err{font-size:var(--t-sm); color:var(--gold); margin-top:7px}
 .file-note{font-size:var(--t-sm); color:var(--muted); margin-top:8px}
+/* width:0 + min-width:100% – ilgas failo vardas neišplečia formos stulpelio */
+.file-list{list-style:none; margin:6px 0 0; padding:0; width:0; min-width:100%}
+.file-list li{display:flex; align-items:center; gap:12px; min-width:0}
+.file-list .fn{flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.file-list button{flex:none; background:none; border:0; padding:6px 0; margin:0; color:inherit; font:inherit; text-decoration:underline; text-underline-offset:3px; cursor:pointer}
+.file-list button:hover{color:var(--text)}
 .form__status{margin-top:var(--s3); font-size:var(--t-sm); color:var(--muted)}
 .form__status.is-ok{color:var(--text)}
 .form__status.is-bad{color:var(--gold)}

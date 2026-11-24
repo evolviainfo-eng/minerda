@@ -30,7 +30,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <noscript><link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
-<link rel="stylesheet" href="styles.css?v=20260924a">
+<link rel="stylesheet" href="styles.css?v=20261124a">
 <script>document.documentElement.className += ' js';</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"AutoBodyShop","name":"Minerda","alternateName":"Poliravimas Meninis Lyginimas keraminė nanodanga Minerda","url":"https://minerda.lt/","image":"https://minerda.lt/img/og.jpg","telephone":"+37063333969","address":{"@type":"PostalAddress","streetAddress":"V. Krėvės pr. 129A","addressLocality":"Kaunas","postalCode":"LT-51100","addressCountry":"LT"},"areaServed":"Kaunas","priceRange":"nuo 40 €/val.","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"}],"sameAs":["https://www.facebook.com/profile.php?id=100054326658601","https://www.instagram.com/_minerda_/"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Meninis lyginimas (PDR)"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Kėbulo poliravimas"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Keraminė nanodanga"}}]}
@@ -529,10 +529,10 @@
           <textarea id="f-msg" name="Zinute" rows="3" placeholder="Pvz.: dešinės priekinės durys, įlenkimas nuo parkavimo, lakas sveikas."></textarea>
         </div>
         <div class="field">
-          <label for="f-file">Pažeidimo nuotrauka <span class="opt">(neprivaloma, iki 8 MB)</span></label>
-          <input id="f-file" class="file-input" name="attachment" type="file" accept="image/*" capture="environment">
-          <label class="file-btn" for="f-file" aria-hidden="true">Pridėti nuotrauką</label>
-          <p class="file-note" id="fileNote" hidden></p>
+          <label for="f-file">Pažeidimo nuotraukos <span class="opt">(neprivaloma, galima kelias, iki 10)</span></label>
+          <input id="f-file" class="file-input" name="attachment" type="file" accept="image/*" multiple>
+          <label class="file-btn" for="f-file" aria-hidden="true" id="fileBtn">Pridėti nuotraukas</label>
+          <div class="file-note" id="fileNote" aria-live="polite" hidden></div>
           <p class="err" data-err-for="f-file"></p>
         </div>
         <button class="btn btn--full" type="submit" id="submit">Įvertinti pagal nuotrauką</button>
@@ -580,6 +580,6 @@
 </div>
 
 <script src="lenis.min.js"></script>
-<script src="main.js?v=20260924a"></script>
+<script src="main.js?v=20261124a"></script>
 </body>
 </html>
